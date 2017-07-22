@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>企服通</title>
+	</head>
+	<link rel="stylesheet" href="css/main.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+	<link rel="stylesheet" href="css/swiper.min.css" />
+	<body>
+		 <div id="header" style="width: 100%;z-index: 999;background: #ffffff;top:0">
+		    <!-- 头部 -->
+		    <header class="flex">
+		      <div class="flex1 location"><span class="fa fa-map-marker"></span><span class="location_text">上海市</span><span class="fa fa-chevron-down"></span></div>
+		      <ul class="flex3 flex">
+		        <li><a href="login.html">登录</a></li>
+		        <li><a href="register.html">免费注册</a></li>
+		        <li><a href="order_manage.html">我的订单</a></li>
+		        <li><a href="#"><span class="fa fa-shopping-cart"></span>购物车0件</a></li>
+		        <li><a href="#">服务商登录</a></li>
+		        <li><a href="#">服务商加盟</a></li>
+		        <li><a href="#">移动应用</a></li>
+		      </ul>
+		      	<div class="location_content col-sm-3">
+		      		<ul class="flex flex-wrap">
+		      			<li class="col-sm-3">上海</li>
+		      			<li class="col-sm-3">北京</li>
+		      			<li class="col-sm-3">广州</li>
+		      			<li class="col-sm-3">深圳</li>
+		      			<li class="col-sm-3">南京</li>
+		      		</ul>
+		      	</div>
+		    </header>
+		    <!-- 标志 联系电话 -->
+		    <div class="flex flexalign">
+		       <div class="flex1 bg_icon">
+		         <img src="img/icon.png" height="46" width="100">
+		       </div>
+		       <div class="flex3 flex justify-content-end">
+		         <div class="tel"><i class="fa fa-phone"></i>400-960-2880</div>
+		       </div>
+		    </div>
+		    <!-- 导航栏 -->
+		    <article class="listnavbar flex">
+		      <!-- 分类 -->
+		      <div class="fl">
+		        <p><span class="fa fa-navicon"></span>全部服务分类</p>
+		        <!--左侧导航-->
+		     <div class="fl_slider">
+	        	<div class="fl_sliderlist">
+		          <div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave">
+		          	{{navigation.service_category_name}}
+		          	<span class="fa fa-angle-right"></span>
+		          </div>
+		        </div>
+		        <div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+		        	<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+		        		<div class="flex" v-for="list in navigation_rightdata.sub1">
+		        			<div class="navigation_rightdata_title">{{list.service_category_name}}</div>
+			        	    <ul class="flex3 flex">
+			        	    	<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+			        	    </ul>
+		        		</div>
+
+		        	</div>
+		        </div>
+		        </div>
+		      </div>
+		      <!-- 导航栏内容 -->
+		      <ul class="flex navbae_list justify-content-start1">
+		        <li class="navbaractive homepage"><a href="index.html">首页</a></li>
+		        <li><a href="company_registration.html">公司注册</a></li>
+		        <li><a href="#">商标注册</a></li>
+		        <li><a href="#">社保服务</a></li>
+		        <li><a href="#">法律服务</a></li>
+		        <li><a href="#">财税服务</a></li>
+		        <li><a href="#">办公选址</a></li>
+		        <li><a href="#">更多服务</a></li>
+		      </ul>
+		    </article>
+
+	        </div>
+		    <!--内容-->
+		    <div id="index">
+			    <article class="bg">
+			        <div class="swiper-container">
+				      <div class="swiper-wrapper">
+				        <div class="swiper-slide"><img src="img/banner_one.png" alt="" /></div>
+				        <div class="swiper-slide"><img src="img/banner_one.png" alt="" /></div>
+				        <div class="swiper-slide"><img src="img/banner_one.png" alt="" /></div>
+				      </div>
+				    </div>
+			    </article>
+			    <!--服务推荐-->
+			    <article class="service">
+			    	<div class="flex justify-content-space-between">
+			    		<p class="content_title">服务推荐</p>
+			    		<hr class="flex1 marginauto" />
+			    		<p class="marginauto more">更多</p>
+			    	</div>
+			    	<div class="row flex flexstretch">
+			    		<div class="col-sm-6 col-md-20" v-for="list_item in recommendation_data">
+					         <div class="thumbnail">
+					            <img class="icon" src="img/service_one.png"
+					             alt="通用的占位符缩略图">
+					            <div class="caption">
+					                <h4>{{list_item.detail_title}}</h4>
+					                <p>{{list_item.detail_description}}</p>
+					            </div>
+					            <img v-bind:src="list_item.detail_logo" />
+					         </div>
+					    </div>
+			    	</div>
+			    </article>
+
+			    <!--办公选址-->
+			    <article class="address">
+			    	<div class="flex justify-content-space-between">
+			    		<p class="content_title">办公选址</p>
+			    		<hr class="flex1 marginauto" />
+			    		<p class="marginauto more">更多</p>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-sm-3" v-for="loac_list in office_location_data">
+					         <div class="thumbnail">
+											 <img v-bind:src="loac_list.detail_logo" />
+					            <div class="caption">
+					                <h4>{{loac_list.detail_title}}</h4>
+					                <p>{{loac_list.detail_price}}</p>
+					            </div>
+					            <button class="btn btn-default btn-block">立即资讯</button>
+					         </div>
+						</div>
+			    	</div>
+			    </article>
+			    <!--金融服务-->
+			    <article class="finance">
+			    	<div class="flex justify-content-space-between">
+			    		<p class="content_title">金融服务</p>
+			    		<hr class="flex1 marginauto" />
+			    		<p class="marginauto more">更多</p>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-3" v-for="financial_list in financialservices_data">
+					         <div class="thumbnail">
+											 <img v-bind:src="financial_list.detail_logo" />
+					            <div class="caption">
+					                <h4>{{financial_list.detail_title}}</h4>
+					                <p>{{financial_list.detail_price}}</p>
+					            </div>
+					            <button class="btn btn-default btn-block">立即资讯</button>
+					         </div>
+						</div>
+			    	</div>
+			    </article>
+			    <!--合作伙伴-->
+			    <article class="cooperation">
+			    	<div class="flex justify-content-space-between">
+			    		<p class="content_title">合作伙伴</p>
+			    		<hr class="flex1 marginauto" />
+			    		<p class="marginauto more">更多</p>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-3" v-for="partner_list in partner_data">
+					         <div class="thumbnail">
+											<img v-bind:src="partner_list.partner" />
+					         </div>
+						</div>
+
+			    	</div>
+			    </article>
+			    <article class="bottom_bar">
+		    	<div class="container">
+		    		<div class="col-md-3 marginauto">
+		    			<p class="banner_title">关于企服通</p>
+		    			<ul class="flex flex-wrap linktopage">
+		    				<li class="col-xs-12" onClick="location.href='about_us.html'">关于我们</li>
+		    				<li class="col-xs-12" onClick="location.href='join_us.html'">加入我们</li>
+		    				<li class="col-xs-12" onClick="location.href='attach_us.html'">联系我们</li>
+		    			</ul>
+		    		</div>
+		    		<div class="col-md-3 marginauto">
+		    			<p class="banner_title">商务合作</p>
+		    			<ul class="flex flex-wrap linktopage">
+		    				<li class="col-xs-12" onClick="location.href='business_cooperation.html'">商务合作</li>
+		    				<li class="col-xs-12" onClick="location.href='friendship_link.html'">友情链接</li>
+		    				<li class="col-xs-12" onClick="location.href='incubator.html'">孵化器</li>
+		    			</ul>
+		    		</div>
+		    		<div class="col-md-4 marginauto flex flexalign">
+		    			<p class="flex1 code_img"><img src="img/code_img.png" alt="" /></p>
+		    			<ul class="flex1 flex flex-wrap">
+		    				<li class="col-xs-12">扫描二维码</li>
+		    				<li class="col-xs-12">关注企服通微信</li>
+		    				<li class="col-xs-12">创业一手掌握</li>
+		    			</ul>
+		    		</div>
+		    		<div class="col-md-2 marginauto">
+		    			<p class="banner_title">服务支持</p>
+		    			<ul class="flex flex-wrap">
+		    				<li class="col-xs-12">400-6683-666</li>
+		    				<li class="col-xs-12">周一至周日8:00-22:00</li>
+		    			</ul>
+		    		</div>
+		    	</div>
+		    	<p class="bottom_text">Copyright©2017苏州吴中金融信息服务有限公司 保留所有权利</p>
+		    </article>
+		    </div>
+		   </div>
+		  <!--modal弹出框-->
+		  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		                <h4 class="modal-title" id="myModalLabel">p2联合创业办公社</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<input type="text" class="form-control" placeholder="提交您的手机号,平台稍后与您联系" />
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		                <button type="button" class="btn btn-primary">提交</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+		   </div>
+
+		<!--//js部分-->
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vue.min.js"></script>
+		<script src="js/swiper.min.js"></script>
+		<script src="js/common.js"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'#index',
+				data:{
+					recommendation_data:{},//服务推荐数据
+					office_location_data:{},//办公选址数据
+					financialservices_data:{},//金融服务数据
+					partner_data:{},//首页合作伙伴
+				}
+			})
+			//获取服务推荐
+			$.ajax({
+				url:'/api/public/index.php/home/ConsultingContent/service_recommendation',
+				type:'post',
+				success:function(res){
+					vm.recommendation_data=res.data
+				}
+			})
+
+			//获取办公地址
+			$.ajax({
+				url:'/api/public/index.php/home/ConsultingContent/service_recommendation',
+				type:'post',
+				success:function(res){
+					vm.office_location_data=res.data
+				}
+			})
+
+			//获取金融服务
+			$.ajax({
+				url:'/api/public/index.php/home/ConsultingContent/finance',
+				type:'post',
+				success:function(res){
+					vm.financialservices_data=res.data
+				}
+			})
+
+			//合作伙伴
+			$.ajax({
+				url:'/api/public/index.php/home/index/partner',
+				type:'post',
+				success:function(res){
+					vm.partner_data=res.data
+				}
+			})
+
+             //办公选址 立即咨询
+             $('.address .thumbnail .btn').on('click',function(){
+             	$('#myModal').modal('show')
+             })
+			//轮播图
+			var mySwiper = new Swiper('.swiper-container',{
+				autoplay: 5000,//可选选项，自动滑动
+			})
+
+
+		</script>
+	</body>
+</html>

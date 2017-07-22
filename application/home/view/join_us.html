@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>加入我们</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
+	</head>
+	<body>
+		<div id="header" style="width: 100%;z-index: 999;background: #ffffff;top:0">
+		    <!-- 头部 -->
+		    <header class="flex">
+		      <div class="flex1 location"><span class="fa fa-map-marker"></span><span class="location_text">上海市</span><span class="fa fa-chevron-down"></span></div>
+		      <ul class="flex3 flex">
+		        <li><a href="login.html">登录</a></li>
+		        <li><a href="register.html">免费注册</a></li>
+		        <li><a href="order_manage.html">我的订单</a></li>
+		        <li><a href="#"><span class="fa fa-shopping-cart"></span>购物车0件</a></li>
+		        <li><a href="#">服务商登录</a></li>
+		        <li><a href="#">服务商加盟</a></li>
+		        <li><a href="#">移动应用</a></li>
+		      </ul>
+		      	<div class="location_content col-sm-3">
+		      		<ul class="flex flex-wrap">
+		      			<li class="col-sm-3">上海</li>
+		      			<li class="col-sm-3">北京</li>
+		      			<li class="col-sm-3">广州</li>
+		      			<li class="col-sm-3">深圳</li>
+		      			<li class="col-sm-3">南京</li>
+		      		</ul>
+		      	</div>
+		    </header>
+		    <!-- 标志 联系电话 -->
+		    <div class="flex flexalign">
+		       <div class="flex1 bg_icon">
+		         <img src="img/icon.png" height="46" width="100">
+		       </div>
+		       <div class="flex3 flex justify-content-end">
+		         <div class="tel"><i class="fa fa-phone"></i>400-960-2880</div>
+		       </div>
+		    </div>
+		    <!-- 导航栏 -->
+		    <article class="listnavbar flex">
+		      <!-- 分类 -->
+		      <div class="fl">
+		        <p><span class="fa fa-navicon"></span>全部服务分类</p>
+		        <!--左侧导航-->
+		     <div class="fl_slider">
+	        	<div class="fl_sliderlist">
+		          <div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave">
+		          	{{navigation.service_category_name}}
+		          	<span class="fa fa-angle-right"></span>
+		          </div>
+		        </div>
+		        <div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+		        	<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+		        		<div class="flex" v-for="list in navigation_rightdata.sub1">
+		        			<div class="navigation_rightdata_title">{{list.service_category_name}}</div>
+			        	    <ul class="flex3 flex">
+			        	    	<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+			        	    </ul>
+		        		</div>
+		        		
+		        	</div>
+		        </div>
+		        </div>
+		      </div> 
+		      <!-- 导航栏内容 -->
+		      <ul class="flex navbae_list justify-content-start1">
+		        <li class="navbaractive homepage"><a href="index.html">首页</a></li>
+		        <li><a href="company_registration.html">公司注册</a></li>
+		        <li><a href="#">商标注册</a></li>
+		        <li><a href="#">社保服务</a></li>
+		        <li><a href="#">法律服务</a></li>
+		        <li><a href="#">财税服务</a></li>
+		        <li><a href="#">办公选址</a></li>
+		        <li><a href="#">更多服务</a></li>
+		      </ul>
+		    </article>
+		    
+	        </div>
+	    <div class="page_content about_us">
+	    	<ul class="right_bottom_list flex justify-content-end">
+		    	<li>关于我们</li>
+		    	<li class="right_bottom_list_active">加入我们</li>
+		    	<li>联系我们</li>
+		    	<li>商务合作</li>
+		    	<li>友情链接</li>
+		    	<li>孵化器</li>
+		    </ul>
+	    	<p class="pagetitle">加入我们</p>
+	    	<div class="page_content_img">
+	    		<img src="img/bg2.png" alt="" />
+	    	</div>
+	        <p class="page_content_text">
+	           jsdbnfsfijsadnfas
+	        </p>
+	    </div>
+	    
+	    <article class="bottom_bar">
+		    	<div class="container">
+		    		<div class="col-md-3 marginauto">
+		    			<p class="banner_title">关于企服通</p>
+		    			<ul class="flex flex-wrap linktopage">
+		    				<li class="col-xs-12" onClick="location.href='about_us.html'">关于我们</li>
+		    				<li class="col-xs-12" onClick="location.href='join_us.html'">加入我们</li>
+		    				<li class="col-xs-12" onClick="location.href='attach_us.html'">联系我们</li>
+		    			</ul>
+		    		</div>
+		    		<div class="col-md-3 marginauto">
+		    			<p class="banner_title">商务合作</p>
+		    			<ul class="flex flex-wrap linktopage">
+		    				<li class="col-xs-12" onClick="location.href='business_cooperation.html'">商务合作</li>
+		    				<li class="col-xs-12" onClick="location.href='friendship_link.html'">友情链接</li>
+		    				<li class="col-xs-12" onClick="location.href='incubator.html'">孵化器</li>
+		    			</ul>
+		    		</div>
+		    		<div class="col-md-4 marginauto flex flexalign">
+		    			<p class="flex1 code_img"><img src="img/code_img.png" alt="" /></p>
+		    			<ul class="flex1 flex flex-wrap">
+		    				<li class="col-xs-12">扫描二维码</li>
+		    				<li class="col-xs-12">关注企服通微信</li>
+		    				<li class="col-xs-12">创业一手掌握</li>
+		    			</ul>
+		    		</div>
+		    		<div class="col-md-2 marginauto">
+		    			<p class="banner_title">服务支持</p>
+		    			<ul class="flex flex-wrap">
+		    				<li class="col-xs-12">400-6683-666</li>
+		    				<li class="col-xs-12">周一至周日8:00-22:00</li>
+		    			</ul>
+		    		</div>
+		    	</div>
+		    	<p class="bottom_text">Copyright©2017苏州吴中金融信息服务有限公司 保留所有权利</p>
+		    </article>
+		    
+		    <!--js部分-->
+		    <script src="js/jquery-3.1.1.min.js"></script>
+		    <script src="js/common.js"></script>
+		    <script src="js/vue.min.js"></script>
+		    <script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

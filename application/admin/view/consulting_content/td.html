@@ -1,0 +1,17 @@
+<td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
+<td>
+  {foreach $data as $list}
+  {if condition="$list.id eq $vo.consulting_type_id"}
+  {$list.consulting_type_title}
+  {/if}
+  {/foreach}
+</td>
+<td>{$vo.project_id}</td>
+<td><img src='{$vo.detail_logo}' width="100" /></td>
+<td>{$vo.detail_description}</td>
+<td>{$vo.detail_title}</td>
+<td>{$vo.detail_price}</td>
+<td>{$vo.detail_tel}</td>
+<td style="padding: 0">
+    <input type="number" name="sort[{$vo.id}]" value="{$vo.sort}" style="width: 60px;"
+        class="input-text text-c order-input" data-id="{$vo.id}"></td>

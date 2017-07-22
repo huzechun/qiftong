@@ -1,0 +1,97 @@
+	<div class="login_tip flex">
+	    	<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+	    	<div class="flex2 marginauto denglu">欢迎注册</div>
+	    </div>
+	    <!--registermodal-->
+	    <div class="login_modal flex">
+	    	<form class="layui-form"  id="defaultForm" method="post">
+				<div class="layui-form-item">
+					<label class="layui-form-label">手机号</label>
+					<div class="layui-input-block">
+						<input type="text" name="phone" required  lay-verify="required|phone" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户名</label>
+					<div class="layui-input-block">
+						<input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">密码</label>
+					<div class="layui-input-block">
+						<input type="password" name="pwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">邮箱</label>
+					<div class="layui-input-block">
+						<input type="text" name="email" required  lay-verify="required" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">验证码</label>
+					<div class="layui-input-block">
+						<input type="text" name="captcha" required  lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label"></label>
+					<div class="layui-input-block">
+						<div style="display:inline"><img src="/captcha" id="captcha" onclick="change_code(this)"></div>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<a class="layui-btn layui-btn-normal" type="submit" lay-submit lay-filter="registerForm"  style="width:100%">立即注册</a>
+					</div>
+				</div>
+			</form>
+	        <div class=""><p style="width:1px;height:100%;background: #ccc;"></p></div>
+	        <div class="col-sm-3 login_left_text">
+	        	<p class="tip">已有企服通账号</p>
+	        	<p class="register_text"><a href="{:url('User/login')}" style="font-size:14px;text-decoration:none;" class="btn"> 立即登录>></a></p>
+	        	<img src="/img/icon.png" alt="" />
+	        </div>
+	    </div>
+	    </div>
+	</body>
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/vue.min.js"></script>
+<script src="/js/function.js"></script>
+<script src="/js/bootstrapValidator.js"></script>
+<script src="/layui/layui.js"></script>
+<script>
+	function change_code(ele){
+		ele.src='/captcha? tm ='+Math.random();
+	}
+	layui.use(['layer', 'form'], function(){
+		var layer = layui.layer
+				,form = layui.form();
+		form.on('submit(registerForm)',function(data){
+			form.verify({
+				phone: [
+					/(13\d|14[57]|15[^4,\D]|17[3678]|18\d)\d{8}|170[0589]\d{7}/
+					,'请填写正确的手机号码'
+				]
+			});
+			$.ajax({
+				url:"{:url('user/to_register')}",
+				type:'post',
+				data:data.field,
+				success:function(resp){
+					if(resp.code==200){
+						layer.msg(resp.msg,{icon:1,time:800},function(){location.href="{:url('index/index')}"});
+					}else if(resp.code==400){
+						layer.msg(resp.msg,{icon:0,time:800});
+						$("#captcha").attr('src','/captcha? tm ='+Math.random());
+					}
+				}
+			})
+		})
+
+	});
+
+</script>
+
+

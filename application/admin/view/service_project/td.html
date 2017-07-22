@@ -1,0 +1,19 @@
+<td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
+<td>
+  {foreach $data as $list}
+  {if condition="$list.id eq $vo.parent_id"}
+  {$list.service_category_name}
+  {/if}
+  {/foreach}
+</td>
+<td>{$vo.project_name|high_light=$Request.param.project_name}</td>
+<td>{$vo.project_description}</td>
+<td>{$vo.price}</td>
+<td>{$vo.old_price}</td>
+<td>{$vo.project_safeguards}</td>
+<td><img src="{$vo.project_pic}" alt="" width="100"></td>
+<td><img src="{$vo.project_banner}" alt="" width="100"></td>
+<td>{$vo.service_introduction|html_entity_decode}</td>
+<td style="padding: 0">
+    <input type="number" name="sort[{$vo.id}]" value="{$vo.sort}" style="width: 60px;"
+        class="input-text text-c order-input" data-id="{$vo.id}"></td>

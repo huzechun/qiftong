@@ -1,0 +1,9 @@
+{extend name="template/recyclebin" /}
+{block name="script"}
+<script>
+    $(function () {
+        $("[name='is_comment']").find("[value='{$Request.param.is_comment}']").attr("selected", true);
+        $("[name='paystatus']").find("[value='{$Request.param.paystatus}']").attr("selected", true);
+    })
+</script>
+{/block}

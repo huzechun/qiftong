@@ -1,0 +1,185 @@
+<div class="login_tip flex">
+	<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+	<div class="myqft">
+		<span>我的企服通</span>
+		<p><a href="{:url('index/index')}">返回首页</a></p>
+	</div>
+	
+	<div class="flex2 marginauto denglu">订单中心</div>
+</div>
+<div id="main-order">
+	<div id="dingdan_left">
+		<ul>
+			<li>订单管理</li>
+			<li><a href="{:url('orderList/order_list')}">我的订单</a></li>
+			<li><a href="{:url('orderList/not_payment')}">待付款</a></li>
+		</ul>
+	<!--	<ul>
+			<li>我的评价</li>
+			<li>待评价</li>
+			<li>已评价</li>
+		</ul>-->
+		<ul>
+			<li>资产中心</li>
+			<li><a href="{:url('orderList/bill')}">发票</a></li>
+		</ul>
+	</div>
+	<div id="dingdan">
+		<div id="tab">
+			<div class="title">
+				<h4 style="border-bottom: 2px solid #007CBC;color:#007CBC;">基本资料</h4>	
+				<!-- <h4>修改手机号</h4>	 -->
+				<h4>修改密码</h4>		
+			</div>	
+			<div class="none"></div>
+			<div class="content">
+				<div class="cont" style="display: block;">
+					<div style="margin: 50px">
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 170px">手机号</label>
+							<div class="layui-input-inline">
+								<input type="text" name="mobilephone"  value="{$member_info.mobilephone}"  disabled   autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-form-mid layui-word-aux" style="color: red">*手机不可修改</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 170px">常用邮箱</label>
+							<div class="layui-input-inline">
+								<input type="text" name="email" value="{$member_info.email}"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+						<label class="layui-form-label" style="width: 170px">姓名称呼</label>
+						<div class="layui-input-inline">
+							<input type="text" name="member_name"  value='{empty name="member_info.member_name"}{else/}{$member_info.member_name}{/empty}'   autocomplete="off" class="layui-input">
+						</div>
+
+					</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 170px">邮寄地址</label>
+							<div class="layui-input-inline">
+									<textarea name="address" placeholder="请输入具体的地址" class="layui-textarea">
+										{empty name="member_info.address"}{else/}{$member_info.address}{/empty}
+									</textarea>
+							</div>
+							<div class="layui-form-mid layui-word-aux" style="color: red">*寄送发票等资料时的收件地址</div>
+						</div>
+						<div class="layui-form-item"	>
+						<label class="layui-form-label" style="width: 170px">所在行业</label>
+						<div class="layui-input-inline" style="overflow: visible;">
+							<select name="industry" lay-verify="">
+								<option value="">请选择所在行业</option>
+								<option value="高新科技">高新科技</option>
+								<option value="金融">金融</option>
+								<option value="教育">教育</option>
+								<option value="服务">服务</option>
+								<option value="制造业">制造业</option>
+							</select>
+						</div>
+					</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 170px">你是如何知道企服通的</label>
+							<div class="layui-input-inline">
+								<select name="way" lay-verify="">
+									<option value="">请选择</option>
+									<option value="微博微信">微博微信</option>
+									<option value="线下方式">线下方式</option>
+									<option value="朋友推荐">朋友推荐</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-input-block" style="margin-left:170px;">
+								<button class="layui-btn layui-btn-normal" lay-submit lay-filter="memberForm">保存</button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+				<div class="cont" style="display: none">
+					<div style="margin: 50px">
+					<form class="layui-form">
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 170px">当前密码</label>
+							<div class="layui-input-inline">
+								<input type="password" name="old_pwd" required  lay-verify="required"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 170px">新密码</label>
+							<div class="layui-input-inline">
+								<input type="password" name="new_pwd" required  lay-verify="required"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 170px">确认新密码</label>
+							<div class="layui-input-inline">
+								<input type="password" name="re_pwd" required  lay-verify="required"  autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<div class="layui-input-block" style="margin-left:170px;">
+								<button class="layui-btn layui-btn-normal" lay-submit lay-filter="pwdForm">修改</button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>	
+	</div>
+	<div class="none1"></div>
+</div>
+<script type="text/javascript">
+		// 给选项卡所有的标题绑定触发的事件
+		$('#tab .title h4').click(function(){
+			// 选中当前之前先把所有的标题背景颜色初始化
+			$('#tab .title h4').css({'border-bottom':'1px solid #fff','color':'#000'});
+			// 把当前选中的标题添加背景颜色
+			$(this).css({'border-bottom':'2px solid #007CBC','color':'#007CBC'});
+			// 在选择相应的内容时先隐所有相关的内容
+			$('#tab .content .cont').css('display','none');
+			// 找到当前的内容显示
+			$('#tab .content .cont').eq($(this).index()).css('display','block');			
+		});
+
+		layui.use(['layer', 'form'], function(){
+			var layer = layui.layer
+					,form = layui.form();
+
+			form.on('submit(memberForm)', function(data){
+				console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+				$.ajax({
+					 url:'/home/user/edit_info',
+					type:'post',
+					data:data.field,
+					success:function(resp){
+						if(resp.code==200){
+							layer.msg(resp.msg,{icon:1,time:800},function(){location.reload()});
+						}
+					}
+				});
+				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+			});
+
+			form.on('submit(pwdForm)', function(data){
+				console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+				$.ajax({
+					url:'/home/user/edit_pwd',
+					type:'post',
+					data:data.field,
+					success:function(resp){
+						if(resp.code==200){
+							layer.msg(resp.msg,{icon:1,time:800});
+						}else if(resp.code==400){
+							layer.msg(resp.msg,{icon:5})
+						}
+					}
+				});
+				return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+			});
+
+		});
+
+</script>

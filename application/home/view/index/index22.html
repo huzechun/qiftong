@@ -1,0 +1,338 @@
+<div id="header" style="width: 100%;z-index: 999;background: #ffffff;top:0">
+	<div class="flex flexalign">
+		<div class="flex1 bg_icon">
+			<a href="{:url('index/index')}"><img src="/img/icon.png" height="46" width="100"></a>
+		</div>
+		<div class="flex3 flex justify-content-end">
+			<div class="tel">400-960-2880</div>
+		</div>
+	</div>
+	<!-- 导航栏 -->
+	<article class="listnavbar flex">
+		<!-- 分类 -->
+		<div class="fla">
+			<p><span class="fa fa-navicon"></span>全部服务分类</p>
+
+			<!--左侧导航-->
+			<div class="fl_slider" style="display: block;!important;" >
+				{foreach name="catedata111" item="catelist"}
+				<div class="fl_sliderlist" >
+					<div @mouseenter="select_right(index)" @mouseleave="select_leave" class="list-content div1" >
+						<span style="left:4%">{$catelist.service_category_name}</span>
+						<span class="fa fa-angle-right"></span>
+					</div>
+				</div>
+				<div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+					<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+						{foreach name="catelist.sub1" item="sub1"}
+						<div class="flex" v-for="list in navigation_rightdata.sub1">
+							<div class="navigation_rightdata_title">
+								<a href="javascript:void (0)"> {$sub1.service_category_name}</a>
+							</div>
+							{foreach name="sub1.sub2" item="sub2"}
+							<ul class="flex3 flex" style="border-bottom: 1px solid #E5E5E5;">
+								<li @click="select_service(navigation_list.id)">{$sub2.project_name}</li>
+							</ul>
+							{/foreach}
+						</div>
+
+					</div>
+					{/foreach}
+				</div>
+				{/foreach}
+			</div>
+
+		</div>
+
+		<!-- 导航栏内容 -->
+		<ul class="flex navbae_list justify-content-start1" id="nav_bar">
+			<li class="navbaractive homepage"><a href="{:url('index/index')}">首页</a></li>
+			{foreach name="Think.config.nav" item="list"}
+			<li><a href="{$list.url}">{$list.name}</a></li>
+			{/foreach}
+		</ul>
+	</article>
+</div>
+<div id="index">
+	<article class="bg">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"></div>
+				<div class="swiper-slide"></div>
+				<div class="swiper-slide"></div>
+			</div>
+		</div>
+	</article>
+	<!--服务推荐-->
+	<!--<article class="service">
+		<div class="flex justify-content-space-between">
+			<p class="content_title">服务推荐</p>
+			<hr class="flex1 marginauto" />
+			&lt;!&ndash;<p class="marginauto more"><a href="{:url('ConsultingContent/more_service')}">更多</a></p>&ndash;&gt;
+		</div>
+		<div class="row flex flexstretch">
+			<div class="col-sm-6 col-md-20" v-for="list_item in recommendation_data">
+				<a style="cursor: pointer" v-on:click="toLocation(list_item.project_id)">
+					<div class="thumbnail">
+						<img class="icon" src="/img/service_one.png"
+							 alt="通用的占位符缩略图">
+						<div class="caption">
+							<h4>{{list_item.project_name}}</h4>
+							<br>
+							<p>{{list_item.detail_description}}</p>
+						</div>
+
+					</div>
+				</a>
+				<img v-bind:src="list_item.detail_logo" class="bottom_img" />
+			</div>
+		</div>
+	</article>-->
+
+	<!--<article class="service">
+		<div class="flex justify-content-space-between">
+			<p class="content_title">服务推荐</p>
+			<hr class="flex1 marginauto" />
+			&lt;!&ndash;<p class="marginauto more"><a href="{:url('ConsultingContent/more_service')}">更多</a></p>&ndash;&gt;
+		</div>
+		{foreach name="data" item="tj" key="k"}
+		<div class="row flex flexstretch">
+			<div class="col-sm-6 col-md-20">
+				<a style="cursor: pointer">
+
+					<div class="thumbnail">
+						<img class="icon" src="/img/service_one.png"
+							 alt="通用的占位符缩略图">
+						<div class="caption">
+							<h4>{$data[$k]['project_name']}</h4>
+							<br>
+							<p>{$data[$k]['detail_description']}</p>
+						</div>
+						<img src="{$data[$k]['detail_logo']}" style="width: 222px;height: 94px;" />
+					</div>
+				</a>
+
+			</div>
+		</div>
+		{/foreach}
+	</article>-->
+
+	{foreach name="cate" item="list"}
+	<article class="address">
+		<div class="flex justify-content-space-between">
+			<p class="content_title">{$list.consulting_type_title}</p>
+			<hr class="flex1 marginauto" />
+			<p class="marginauto more"><a style="cursor: pointer" onclick="location.href='/home/ConsultingContent/more_service/id/{$list.id}'">更多</a></p>
+		</div>
+		<div class="row">
+			{foreach name="list.project_content" item="vo"}
+			<div class="col-sm-3" >
+				<div class="thumbnail">
+					<img src="{$vo.detail_logo}" style="width: 160px;height: 90px;" />
+					<div class="caption">
+						<h4>{$vo.detail_title}</h4>
+						<br>
+						<p>{$vo.detail_price}</p>
+					</div>
+					<button class="btn btn-default btn-block" onclick="Consultation('{$vo.id}','{$vo.detail_title}')">立即咨询</button>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+	</article>
+	{/foreach}
+
+	<!--合作伙伴-->
+	<article class="cooperation">
+		<div class="flex justify-content-space-between">
+			<p class="content_title">合作伙伴</p>
+			<hr class="flex1 marginauto" />
+		</div>
+		<div class="row">
+			<div class="col-md-2" v-for="partner_list in partner_data">
+				<div class="thumbnail">
+					<img v-bind:src="partner_list.partner" />
+				</div>
+			</div>
+		</div>
+	</article>
+
+</div>
+<script type="text/javascript">
+    layui.use(['layer', 'form'], function(){
+        var layer = layui.layer
+            ,form = layui.form();
+    });
+    var vm = new Vue({
+        el:'#index',
+        data:{
+            recommendation_data:{},//服务推荐数据
+            office_location_data:{},//办公选址数据
+            financialservices_data:{},//金融服务数据
+            partner_data:{},//首页合作伙伴
+            menu_data:{}//首页导航栏
+        },
+        methods:{
+            Consultation:function(index){
+                var consult = layer.open({
+                    type: 1,
+                    title:index['detail_title'],
+                    skin: 'layui-layer-demo', //样式类名
+                    closeBtn: 1, //不显示关闭按钮
+                    anim: 2,
+                    area: ['500px', '240px'], //宽高
+                    shadeClose: true, //开启遮罩关闭
+                    content: '<form class="layui-form" action="" style="margin: 20px 0;width: 400px">'+
+                    '<div class="layui-form-item">'+
+                    '<div class="layui-input-block">'+
+                    '<input type="text" name="phone" id="consult_phone" required  lay-verify="required|phone" placeholder="提交您的手机号，平台会与您联系" autocomplete="off" class="layui-input">'+
+                    '</div></div>' +
+                    '<div class="layui-form-item">'+
+                    '<div class="layui-input-block">'+
+                    '<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button></div></div>'+
+                    '</form>'
+                });
+
+                layui.use(['layer', 'form'], function(){
+                    var layer = layui.layer
+                        ,form = layui.form();
+                    form.on('submit(formDemo)',function(data){
+                        form.verify({
+                            phone: [
+                                /(13\d|14[57]|15[^4,\D]|17[3678]|18\d)\d{8}|170[0589]\d{7}/
+                                ,'请填写正确的手机号码'
+                            ]
+                        });
+                        console.log(data.field);
+                        $.ajax({
+                            url:"/home/ConsultingContent/consulting_tel",
+                            type:'post',
+                            data:{
+                                customer_tel:$("#consult_phone").val(),
+                                consulting_content_id:index['id'],
+                                member_id:'{empty name="Think.session.user"}{else/}{$Think.session.user.id}{/empty}',
+                                project_id:index['project_id']
+                            },
+                            success:function(resp){
+                                if(resp.code==200){
+                                    layer.msg(resp.msg,{icon: 5});
+                                }else if(resp.code==400){
+                                    layer.msg(resp.msg);
+                                }
+                            },complete:function(){
+                                layer.close(consult);
+                            }
+                        });
+                        return false;
+                    });
+                });
+
+            },
+            toLocation:function (index) {
+                location.href="/home/project_content/project_content/id/"+index;
+            }
+        }
+    });
+
+
+
+    //	//获取导航栏
+    //	$.ajax({
+    //		url:'/home/ProjectContent/menu',
+    //		type:'post',
+    //		success:function (res) {
+    //			var content='<li class="navbaractive homepage"><a href="{url:("index/index")}">首页</a></li>';
+    //			$.each(res.data,function(i,n){
+    //				content+='<li><a href=n.url>'+n.name+'</a></li>';
+    //			});
+    //			$("#nav_bar").append(content);
+    //		}
+    //	});
+
+
+    //获取服务推荐
+    $.ajax({
+        url:'/home/ConsultingContent/service_recommendation',
+        type:'post',
+        success:function(res){
+            vm.recommendation_data=res.data
+        }
+    });
+
+
+
+    function Consultation (id,name){
+        var consult = layer.open({
+            type: 1,
+            title:name,
+            skin: 'layui-layer-demo', //样式类名
+            closeBtn: 1, //不显示关闭按钮
+            anim: 2,
+            area: ['500px', '240px'], //宽高
+            shadeClose: true, //开启遮罩关闭
+            content: '<form class="layui-form" action="" style="margin: 20px 0;width: 400px">'+
+            '<div class="layui-form-item">'+
+            '<div class="layui-input-block">'+
+            '<input type="text" name="phone" id="consult_phone" required  lay-verify="required|phone" placeholder="提交您的手机号，平台会与您联系" autocomplete="off" class="layui-input">'+
+            '</div></div>' +
+            '<div class="layui-form-item">'+
+            '<div class="layui-input-block" style="text-align:center;">'+
+            '<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button></div></div>'+
+            '</form>'
+        });
+
+        layui.use(['layer', 'form'], function(){
+            var layer = layui.layer
+                ,form = layui.form();
+            form.on('submit(formDemo)',function(data){
+                form.verify({
+                    phone: [
+                        /(13\d|14[57]|15[^4,\D]|17[3678]|18\d)\d{8}|170[0589]\d{7}/
+                        ,'请填写正确的手机号码'
+                    ]
+                });
+                console.log(data.field);
+                $.ajax({
+                    url:"/home/ConsultingContent/consulting_tel",
+                    type:'post',
+                    data:{
+                        customer_tel:$("#consult_phone").val(),
+                        consulting_content_id:id,
+                        member_id:'{empty name="Think.session.user"}{else/}{$Think.session.user.id}{/empty}',
+                    },
+                    success:function(resp){
+                        if(resp.code==200){
+                            layer.msg(resp.msg,{icon: 1});
+                        }else if(resp.code==400){
+                            layer.msg(resp.msg);
+                        }
+                    },complete:function(){
+                        layer.close(consult);
+                    }
+                });
+                return false;
+            });
+        });
+    }
+
+    //合作伙伴
+    $.ajax({
+        url:'/home/index/partner',
+        type:'post',
+        success:function(res){
+            vm.partner_data=res.data
+        }
+    });
+
+    //轮播图
+    var mySwiper = new Swiper('.swiper-container',{
+        autoplay: 5000//可选选项，自动滑动
+    })
+
+
+
+
+
+
+
+</script>

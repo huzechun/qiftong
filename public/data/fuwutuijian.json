@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "id": 7,
+      "consulting_type_id": 5,
+      "consulting_type_title": "服务推荐",
+      "project_id": 0,
+      "icon": null,
+      "detail_logo": null,
+      "detail_description": "足不出户，即可享受",
+      "detail_title": "个人社保代缴专场",
+      "detail_price": null,
+      "detail_tel": null,
+      "sort": null,
+      "status": 1,
+      "isdelete": 0
+    }
+  ]
+}

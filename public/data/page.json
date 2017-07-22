@@ -1,0 +1,260 @@
+{
+	"variables": [],
+	"info": {
+		"name": "qftnew",
+		"_postman_id": "67684408-7909-2544-1dac-3c2274331d4b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "购物车",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/comment/feedback_rate",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "project_id",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "project_name",
+							"value": "有限公司注册",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "member_id",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "project_demand",
+							"value": "有限公司注册xuqiu",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "city",
+							"value": "11",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "price",
+							"value": "1000",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "num",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "total",
+							"value": "1000",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"enabled": false
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "评论好评率",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/comment/feedback_rate",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "project_id",
+							"value": "2",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "project_name",
+							"value": "有限公司注册",
+							"type": "text",
+							"enabled": false
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "评价内容",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/Comment/comment",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "project_id",
+							"value": "3",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "首页内容",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/index/index",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": " "
+			},
+			"response": []
+		},
+		{
+			"name": "首页服务推荐",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/service_recommendation",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "首页办公地址",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/office_address",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "首页金融服务",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/finance",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务投资机构",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/investment",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务团队协作",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/teamwork",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务云服务",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/cloudservice",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务建站营销",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/station",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务技术开发",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/technology",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务其他服务",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/other_service",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务装修绿植",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/decorate",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "更多服务设计印刷",
+			"request": {
+				"url": "http://testwx.pluscar.cn/qft/public/index.php/home/ConsultingContent/printing",
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

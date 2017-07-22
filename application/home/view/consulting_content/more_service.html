@@ -1,0 +1,126 @@
+<div id="header" style="width: 100%;z-index: 999;background: #ffffff;top:0">
+	<div class="flex flexalign">
+		<div class="flex1 bg_icon">
+			<a href="{:url('index/index')}"><img src="/img/icon.png" height="46" width="100"></a>
+		</div>
+		<div class="flex3 flex justify-content-end">
+			<div class="tel">400-960-2880</div>
+		</div>
+	</div>
+	<article class="listnavbar flex">
+		<!-- 分类 -->
+		<div class="fl">
+			<p><span class="fa fa-navicon"></span>全部服务分类</p>
+			<!--左侧导航-->
+			<div class="fl_slider">
+				<div class="fl_sliderlist">
+					<div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave" class="list-content div1">
+						<span style="left:4%">{{navigation.service_category_name}}</span>
+						<span class="fa fa-angle-right"></span>
+					</div>
+				</div>
+				<div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+					<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+						<div class="flex" v-for="list in navigation_rightdata.sub1">
+							<div class="navigation_rightdata_title"><a href="javascript:void (0)">   {{list.service_category_name}}</a></div>
+							<ul class="flex3 flex" style="border-bottom: 1px solid #E5E5E5;">
+								<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 导航栏内容 -->
+		<ul class="flex navbae_list justify-content-start1" id="nav_bar">
+			<li><a href="{:url('index/index')}">首页</a></li>
+				{foreach name="Think.config.nav" item="list"}
+			<li {if condition="$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] eq 'www.7futong.com'. $list.url"}
+				class="navbaractive homepage" {/if}>
+				<a href="{$list.url}">{$list.name}</a></li>
+			{/foreach}
+		</ul>
+
+	</article>
+</div>
+	    <!--主体内容-->
+	    <div class="address" style="padding-bottom: 19rem;">
+	    	<div class="flex justify-content-space-between">
+	    		<p class="content_title">{$more_data.title}</p>
+	    		<hr class="flex1 marginauto">
+	    	</div>
+	    	<div class="row">
+				{foreach name="more_data.data" item="list"}
+	    		<div class="col-sm-3">
+			         <div class="thumbnail">
+						 <img src="{$list.detail_logo}"  style="width: 160px;height: 90px;"/>
+			            <div class="caption">
+<!-- 			                <p class="caption_text">{$list.detail_description}</p> -->
+			                <h4>{$list.detail_title}</h4>
+			                <br>
+			                <p class="color_red">{$list.detail_price}</p>
+			            </div>
+			            <button class="btn btn-default btn-block" onclick="Consultation('{$list.id}','{$list.detail_title}')">立即咨询</button>
+			         </div>
+			    </div>
+				{/foreach}
+			</div>
+	    </div>
+<script>
+	function Consultation(id,name){
+		var consult = layer.open({
+					type: 1,
+					title:name,
+					skin: 'layui-layer-demo', //样式类名
+					closeBtn: 1, //不显示关闭按钮
+					anim: 2,
+					area: ['500px', '240px'], //宽高
+					shadeClose: true, //开启遮罩关闭
+					content: '<form class="layui-form" action="" style="margin: 20px 0;width: 400px">'+
+					'<div class="layui-form-item">'+
+					'<div class="layui-input-block">'+
+					'<input type="text" name="phone" id="consult_phone" required  lay-verify="required|phone" placeholder="提交您的手机号，平台会与您联系" autocomplete="off" class="layui-input">'+
+					'</div></div>' +
+					'<div class="layui-form-item">'+
+					'<div class="layui-input-block" style="text-align:center;">'+
+					'<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button></div></div>'+
+					'</form>'
+				}
+		);
+
+		layui.use(['layer', 'form'], function(){
+			var layer = layui.layer
+					,form = layui.form();
+			form.on('submit(formDemo)',function(data){
+				form.verify({
+					phone: [
+						/(13\d|14[57]|15[^4,\D]|17[3678]|18\d)\d{8}|170[0589]\d{7}/
+						,'请填写正确的手机号码'
+					]
+				});
+				console.log(data.field);
+				$.ajax({
+					url:"/home/ConsultingContent/consulting_tel",
+					type:'post',
+					data:{
+						customer_tel:$("#consult_phone").val(),
+						consulting_content_id:id,
+						member_id:'{empty name="Think.session.user"}{else/}{$Think.session.user.id}{/empty}',
+					},
+					success:function(resp){
+						if(resp.code==200){
+							layer.msg(resp.msg);
+						}else if(resp.code==400){
+							layer.msg(resp.msg);
+						}
+					},complete:function(){
+						layer.close(consult);
+					}
+				});
+//
+				return false;
+			});
+		});
+	}
+</script>

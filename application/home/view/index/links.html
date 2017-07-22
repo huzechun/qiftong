@@ -1,0 +1,161 @@
+﻿
+
+
+	<style type="text/css">
+
+		tbody {
+			display: table-row-group;
+			vertical-align: middle;
+			border-color: inherit;
+		}
+
+		tr {
+			display: table-row;
+			vertical-align: inherit;
+			border-color: inherit;
+		}
+
+		table{
+			border-collapse: collapse;
+
+		}
+
+		 a{
+			 text-decoration: none;
+			 cursor: auto;
+		 }
+
+		table td, table th {
+			border: 1px solid #999999;
+			text-align: center;
+		}
+
+		.footer{padding: 0;}
+		.friendly-link{
+			padding: 0px 12%;
+			height: auto;
+			min-width: 1180px;
+			padding-bottom: 400px;
+			width: 100%;
+			float: left;
+			background-color: #ededed;
+		}
+		.c_d_ta {
+			margin: 0 auto;
+			background-color: #fff;
+			border: 1px solid #cfcfcf;
+			border-right: 0;
+			margin-top:40px;
+		}
+		.c_d_ta_1 {
+			background-color: #f9f9f9;
+		}
+		.c_d_ta td {
+			width: 160px;
+			height: 40px;
+			color: #5d5d5d;
+			border-right: 1px solid #cfcfcf;
+			border-bottom: 1px solid #cfcfcf;
+			border-left: none;
+		}
+		.c_d_ta_1 td{
+			height: 79px;
+
+		}
+
+		.c_d_ta td span {
+			color: #5d5d5d;
+			font-size: 24px;
+			margin: 10px 0;
+		}
+		.c_zml_jump b{font-size: 14px;font-weight: normal; color:#606060}
+		#hover_toast {
+			text-align: left;
+			width: 155px;
+			padding: 7px 5px 7px 10px;
+			position: absolute;
+			display: none;
+			border: 1px solid #eadfc4;
+			background: #fffdeb;
+			color: #9d781e;
+			font-size: 13px;
+			font-weight: 700;
+			overflow: hidden;
+			line-height: 22px;
+		}
+		.friendly-link{background:#fff;}
+		.friendly-link table{margin:0 auto;}
+		.friendly-link .right_bottom_list{padding-right:1%;}
+	</style>
+
+<div id="header" style="width: 100%;z-index: 999;background: #ffffff;    margin-top: -21px;">
+	<div class="flex flexalign">
+		<div class="flex1 bg_icon">
+			<a href="{:url('index/index')}"><img src="/img/icon.png" height="46" width="100"></a>
+		</div>
+		<div class="flex3 flex justify-content-end">
+			<div class="tel">400-960-2880</div>
+		</div>
+	</div>
+	<!-- 导航栏 -->
+	<article class="listnavbar flex">
+		<!-- 分类 -->
+		<div class="fl">
+			<p><span class="fa fa-navicon"></span>全部服务分类</p>
+			<!--左侧导航-->
+			<div class="fl_slider">
+				<div class="fl_sliderlist">
+					<div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave" class="list-content div1">
+						<span style="left:4%">{{navigation.service_category_name}}</span>
+						<span class="fa fa-angle-right"></span>
+					</div>
+				</div>
+				<div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+					<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+						<div class="flex" v-for="list in navigation_rightdata.sub1">
+							<div class="navigation_rightdata_title"><a href="javascript:void (0)">   {{list.service_category_name}}</a></div>
+							<ul class="flex3 flex" style="border-bottom: 1px solid #E5E5E5;">
+								<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 导航栏内容 -->
+		<ul class="flex navbae_list justify-content-start1" id="nav_bar">
+			<li class=" homepage"><a href="{:url('index/index')}">首页</a></li>
+			{foreach name="Think.config.nav" item="list"}
+			<li><a href="{$list.url}">{$list.name}</a></li>
+			{/foreach}
+		</ul>
+	</article>
+</div>
+
+
+<!-- 友情链接 -->
+<div class="friendly-link">
+
+	<div class="page_content about_us">
+		<ul class="right_bottom_list flex justify-content-end">
+			<li><a href="{:url('index/about')}">关于我们</a></li>
+			<li><a href="{:url('index/joinus')}">加入我们</a></li>
+			<li><a href="{:url('index/attach_us')}">联系我们</a></li>
+			<li><a href="{:url('index/cooperation')}">商务合作</a></li>
+			<li  class="right_bottom_list_active"><a href="{:url('index/links')}">友情链接</a></li>
+			<li><a href="{:url('index/incubator')}">孵化器</a></li>
+		</ul>
+	</div>
+
+
+	<h1 style="text-align: center;font-size: 30px;font-weight:600;margin-top: 20px;">
+
+		{$links.detail_title}</h1>
+
+
+	    {$links.detail_description}
+
+
+	<div id="hover_toast"></div>
+</div>

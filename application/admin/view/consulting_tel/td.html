@@ -1,0 +1,14 @@
+<td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
+
+<td>{foreach $data as $list}
+{if condition="$vo.consulting_content_id eq $list.id"}
+{$list.consulting_type_title}
+{/if}
+{/foreach}</td>
+<td>{$vo.member_id}</td>
+<td>{$vo.project_id}</td>
+<td>{$vo.customer_tel}</td>
+<td>{$vo.consulting_time|Date='Y-m-d m:i:s',###}</td>
+<td style="padding: 0">
+    <input type="number" name="sort[{$vo.id}]" value="{$vo.sort}" style="width: 60px;"
+        class="input-text text-c order-input" data-id="{$vo.id}"></td>

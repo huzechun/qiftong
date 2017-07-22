@@ -1,0 +1,402 @@
+
+<!--导航栏部分-->
+<div id="header" style="width: 100%;z-index: 999;background: #ffffff;top:0">
+
+	<!-- 标志 联系电话 -->
+	<div class="flex flexalign">
+		<div class="flex1 bg_icon">
+			<a href="{:url('index/index')}"><img src="/img/icon.png" height="46" width="100"></a>
+		</div>
+		<div class="flex3 flex justify-content-end">
+			<div class="tel">400-960-2880</div>
+		</div>
+	</div>
+	<!-- 导航栏 -->
+	<article class="listnavbar flex">
+		<!-- 分类 -->
+		<div class="fl">
+			<p><span class="fa fa-navicon"></span>全部服务分类</p>
+			<!--左侧导航-->
+			<div class="fl_slider">
+				<div class="fl_sliderlist">
+					<div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave" class="list-content div1">
+						<span style="left:4%">{{navigation.service_category_name}}</span>
+						<span class="fa fa-angle-right"></span>
+					</div>
+				</div>
+				<div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+					<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+						<div class="flex" v-for="list in navigation_rightdata.sub1">
+							<div class="navigation_rightdata_title"><a href="javascript:void (0)">   {{list.service_category_name}}</a></div>
+							<ul class="flex3 flex" style="border-bottom: 1px solid #E5E5E5;">
+								<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 导航栏内容 -->
+
+		<ul class="flex navbae_list justify-content-start1" id="nav_bar">
+			<li ><a href="{:url('index/index')}">首页</a></li>
+				{foreach name="Think.config.nav" item="list"}
+
+			   <li {if condition="$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] eq 'www.7futong.com'. $list.url"}
+
+				   class="navbaractive homepage" {/if}>
+
+			    <a href="{$list.url}" >{$list.name}</a></li>
+
+
+			{/foreach}
+		</ul>
+	</article>
+
+</div>
+<section id="shop">
+	    <!--面包屑导航-->
+		<ol class="breadcrumb" style="padding-left:0;">
+			<li><a href="#">首页</a></li>
+			<li class="active">{$data.project_name}</li>
+		</ol>
+		<!--内容-->
+		<article class="shop_info flex">
+			<div class="commodity_img col-sm-6 col-xs-12">
+				<!--<img src="/img/qft1.jpg" alt="" />-->
+				<img src="{$data.project_pic}" alt="" />
+			</div>
+			<div class="col-sm-6 col-xs-12 shop_detail">
+				<h3 class="title">{$data.project_name}</h3>
+				<p class="descript">{$data.project_description}</p>
+				<p class="price flex"><span style="font-size: 19px;">　价格:</span><b style="line-height: 60px;font-size: 21px;color: #ff4747;">￥</b><span class="price_num">{$data.price}元</span>
+					<!-- <span class="package">套餐更优惠</span> -->
+				</p>
+				<button class="layui-btn layui-btn-danger bill">加入购物车</button>
+				<div class="bottom_box">
+					<hr />
+					<p class="taibao">　太平洋保险提供保障</p>
+					<p class="data_detail">{$data.project_safeguards}</p>
+				</div>
+				
+			</div>
+		</article>
+		<article class="banner">
+			<img src="{$data.project_banner}" alt="" />
+			<!--<img src="/img/about_usimg.png" alt="" />-->
+		</article>
+		<article class="infomation">
+			<div class="col-sm-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						服务商列表
+					</div>
+					<div class="panel-body">
+						{foreach name="provider" item="vo" key="k"}
+						<ul>
+							<li class="flex">
+								<div class="col-sm-4 round">
+									<div class="img">
+										<img src="{$vo.photo}" alt="" />
+									</div>
+								</div>
+								<div class="col-sm-8 flex tel_name">
+									<p>{$vo.name}</p>
+									<p class="name_num">联系电话:{$vo.mobilephone}</p>
+								</div>
+							</li>
+						</ul>
+						{/foreach}
+						<p class="readmore">查看更多</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9" style="float: right;">
+				<div class="panel panel-default pannel-right">
+					<div class="panel-heading">
+						<ul class="flex panel_navbar">
+							<li class="panel_navbar_active">服务介绍</li>
+							<li>用户评价({$new_data.ALL})</li>
+							<li>服务保障</li>
+							<li>热门回答</li>
+							<li>关于企服通</li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<div class="introduce">
+							<p class="top_tip_title">服务介绍</p>
+							{$data.service_introduction|html_entity_decode}
+						</div>
+						<div class="evaluation" style="display: none">
+							<p class="top_tip_title">用户评价</p>
+							<div class="good_evaluation flex">
+								<div class="flex1 flex">
+									<div class="flex1 marginauto textcenter">
+										<p class="goods">{$new_data.HP}</p>
+										<p style="margin-top:20px;">好评率</p>
+									</div>
+									<ul class="flex1 flexalign">
+										<li class="flex flexalign">
+											<div class="flex2">好评{$new_data.HP}</div>
+											<div class="flex3 progress">
+												<div class="progress-bar progress-bar-danger" style="width:{$new_data.HP}"></div>
+											</div>
+										</li>
+										<li class="flex flexalign">
+											<div class="flex2">中评{$new_data.ZP}</div>
+											<div class="flex3 progress">
+												<div class="progress-bar progress-bar-danger" style="width:{$new_data.ZP}"></div>
+											</div>
+										</li>
+										<li class="flex flexalign">
+											<div class="flex2">差评{$new_data.CP}</div>
+											<div class="flex3 progress">
+												<div class="progress-bar progress-bar-danger" style="width:{$new_data.CP}"></div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="flex1">
+									<p style="margin: 0.5rem 1rem 0 1rem;">客户印象</p>
+									<ul class="impression flex flex-wrap">
+										{foreach name="tag_data" item="to" key="k"}
+										<li><a href="javascript:void(0)">{$k}({$to})</a></li>
+										{/foreach}
+									</ul>
+								</div>
+							</div>
+						    <div class="evaluate">
+						    	<ul class="flex top_tip_title">
+						    		<li id="allp">全部评价</li>
+						    		<li id="hp">好评</li>
+						    		<li id="zp">中评</li>
+						    		<li id="cp">差评</li>
+						    	</ul>
+						    	 <p class="xinde">评价心得</p>
+									<hr>
+						    	<div class="evaluate_content">
+						    		<!--评价的详情-->
+									{empty name="cm_data"}
+									<div  id="allComment">暂无此评论</div>
+									{else/}
+                                     <ul class="table-style" id="allComment" lay-even lay-skin="nob">
+												
+												
+												{foreach name="cm_data" item="list"}
+												
+													<li style="float:left">{$list.mobilephone}</li>
+													<li style="padding-left:13px;float:left">{$list.project_name}</li>
+													<li style="padding-left:13px;float:left">{$list.comment_time}</li>
+													<li class="content_evaluate" style="clear: both">{$list.comment_content}</li>
+
+
+												{/foreach}
+											
+									</ul>
+									{/empty}
+
+									{empty name="praise"}
+									<div  id="hpComment" style="display: none">暂无此评论</div>
+									{else/}
+                                  
+									 <ul class="table-style" id="hpComment" style="display: none" lay-even lay-skin="nob">
+												
+												
+												{foreach name="praise" item="a"}
+												
+													<li style="float:left">{$a.mobilephone}</li>
+													<li style="padding-left:13px;float:left">{$a.project_name}</li>
+													<li style="padding-left:13px;float:left">{$a.comment_time}</li>
+													<li class="content_evaluate" style="clear: both">{$a.comment_content}</li>
+
+												{/foreach}
+											
+									</ul>
+									{/empty}
+
+									{empty name="common"}
+									<div id="zpComment" style="display: none">暂无此评论</div>
+									{else/}
+                                    
+									<ul class="table-style" id="zpComment" style="display: none" lay-even lay-skin="nob">
+												
+												
+												{foreach name="common" item="b"}
+												
+													<li style="float:left">{$b.mobilephone}</li>
+													<li style="padding-left:13px;float:left">{$b.project_name}</li>
+													<li style="padding-left:13px;float:left">{$b.comment_time}</li>
+													<li class="content_evaluate" style="clear: both">{$b.comment_content}</li>
+												{/foreach}
+											
+									</ul>
+									{/empty}
+
+									{empty name="bad"}
+									<div id="cpComment" style="display: none">暂无此评论</div>
+									{else/}
+										<ul class="table-style" id="zpComment" style="display: none" lay-even lay-skin="nob">
+												
+												
+												{foreach name="bad" item="c"}
+												
+													<li style="float:left">{$c.mobilephone}</li>
+													<li style="padding-left:13px;float:left">{$c.project_name}</li>
+													<li style="padding-left:13px;float:left">{$c.comment_time}</li>
+													<li class="content_evaluate" style="clear: both">{$c.comment_content}</li>
+												{/foreach}
+											
+										</ul>
+									{/empty}
+
+						    	</div>
+						    </div>
+						</div>
+						<div class="guarantee" style="display: none">
+							<p class="top_tip_title">服务保障</p>
+							<p>
+								{foreach name="guarantee" item="vo" key="k"}
+								{$vo.guarantee_content|html_entity_decode}
+								{/foreach}
+							</p>
+							<!--<ul>
+								<li class="flex">
+									<div class="img"><img src="/img/f.png" alt=""  /></div>
+									<div style="margin-left: 20px;margin-top: 3px;">
+										<p class="title">我们承诺<p>
+									    <p class="title_des">关于服务质量的反馈，我们会第一时间</p>
+									</div>
+								</li>
+								<li class="flex">
+									<div class="img"><img src="/img/t.png" alt="" style="margin-left: 22px;" /></div>
+									<div style="margin-left: 20px;margin-top: 3px;">
+										<p class="title">投诉渠道<p>
+									    <p class="title_des" class="title_des">1.拨打400-6683-666;</p>
+									    <p class="title_des">2.点击在线投诉按钮,描述详情;</p>
+									    <p class="title_des">3.通过微博、微信公众号等方式,联系我们;</p>
+									</div>
+								</li>
+								<li class="flex">
+									<div class="img"><img src="/img/c.png" alt="" /></div>
+									<div style="margin-left: 20px;margin-top: 3px;">
+										<p class="title">处理流程<p>
+									    <p class="title_des">关于服务质量的反馈，我们会第一时间</p>
+									</div>
+								</li>
+								<li class="flex">
+									<div class="img"><img src="/img/b.png" alt="" /></div>
+									<div style="margin-left: 20px;margin-top: 3px;">
+										<p class="title">平台保险<p>
+									    <p class="title_des">关于服务质量的反馈，我们会第一时间</p>
+									</div>
+								</li>
+							</ul>-->
+						</div>
+						<div class="quiz" style="display: none">
+							<p class="top_tip_title">热门回答</p>
+							{empty name="qa_content"}
+							<p class="problem">暂无回答</p>
+							{else/}
+							<ul class="qa-list">
+								{foreach name="qa_content" item="qo"}
+								<li>
+									<p class="problem">{$qo.content_q}</p>
+									<p class="answer">{$qo.content_a}</p>
+								</li>
+								{/foreach}
+							</ul>
+							{/empty}
+						</div>
+
+						<div class="about_qft" style="display: none">
+							<p>{$about.about_content}</p>
+							<!-- 图片尺寸710*450 -->
+							<img src="{$about.picture}" style="    width: 100%;"/>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</article>
+		</section>
+
+<div class="none1"></div>
+	<!--//js部分-->
+<script type="text/javascript">
+            $(window).scroll(function(){
+	            if($(window).scrollTop()>=$('.infomation .col-sm-9').offset().top){
+	            	$('.infomation .col-sm-9').find('.panel-heading').addClass('dis_fixed')
+	            }else{
+	            	$('.infomation .col-sm-9').find('.panel-heading').removeClass('dis_fixed')
+	            }
+            });
+            //右端选项卡
+			$('.pannel-right .panel_navbar li').on('click',function(){
+				$(this).addClass('panel_navbar_active').siblings().removeClass('panel_navbar_active');
+				$('.pannel-right .panel-body>div').eq($(this).index()).show().siblings().hide();
+			})
+
+			//评价切换
+			$('.evaluate>ul li').on('click',function(){
+				$(this).css({'color':'#007AFF'}).siblings().css({'color':'#333'});
+			});
+			$("#allp").on('click',function(){
+
+				$("#allComment").show();
+				$("#hpComment").hide();
+				$("#zpComment").hide();
+				$("#cpComment").hide();
+			});
+			$("#hp").on('click',function(){
+				$("#hpComment").show();
+				$("#allComment").hide();
+				$("#zpComment").hide();
+				$("#cpComment").hide();
+			});
+			$("#zp").on('click',function(){
+				$("#zpComment").show();
+				$("#allComment").hide();
+				$("#hpComment").hide();
+				$("#cpComment").hide();
+			});
+			$("#cp").on('click',function(){
+				$("#cpComment").show();
+				$("#allComment").hide();
+				$("#hpComment").hide();
+				$("#zpComment").hide();
+			});
+
+
+layui.use(['layer', 'form'], function(){
+	var layer = layui.layer
+			,form = layui.form();
+	//点击结账
+	$('.bill').on('click',function() {
+		$.ajax({
+			url:'/home/cart/addcart',
+			type:'post',
+			data:{
+				member_id: '{$Think.session.user.id}',
+				project_id: '{$data.id}'
+			},
+			success:function (res) {
+				if(res.code == 200){
+					layer.msg(res.msg);
+					redirect("location.href='/home/cart/index'",1000);
+				}else if(res.code == 400){
+					layer.msg(res.msg,{icon:0},function(){location.href="{:url('user/login')}"});
+				}
+			}
+		})
+
+	});
+
+});
+
+
+
+
+
+</script>
+

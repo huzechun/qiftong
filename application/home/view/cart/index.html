@@ -1,0 +1,190 @@
+{empty name="data" }
+<article class="shopping_cart" >
+	<div class="login_tip flex" style="background:#fff;">
+		<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+
+		
+		<div class="flex2 marginauto denglu">购物车</div>
+	</div>
+
+	<div class="main greyf5f5f5">
+		<!-- 购物车 -->
+		<div class="minwidth">
+			<div class="cart-empty">
+				<h3>您的购物车还是空的！</h3>
+				<div class="btn">
+					<a href="/" class="layui-btn layui-btn-normal">马上去购物</a>
+				</div>
+			</div>
+		</div>
+		<div class="minwidth">
+			<!-- 热门推荐 -->
+			<!-- 热门推荐 -->
+		</div>
+	</div>
+</article>
+{else/}
+<article class="shopping_cart" >
+		    <div class="login_tip flex">
+		    	<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+		    	<div class="flex2 marginauto denglu">购物车</div>
+		    </div>
+		    <div class="shop_cart clearfix">
+				<table class="layui-table" lay-even lay-skin="nob">
+					<colgroup>
+						<col width="150">
+						<col width="200">
+						<col>
+					</colgroup>
+					<thead>
+					<tr>
+						<th>商品信息</th>
+						<th>单价</th>
+						<th>数量</th>
+						<th>小计</th>
+						<th >操作</th>
+					</tr>
+					</thead>
+					<tbody>
+				   {foreach name="data" item="list"}
+				   <tr>
+					<td>{$list.project_name}</td>
+					<td>{$list.price}元</td>
+					<td><a class="layui-btn layui-btn-primary layui-btn-mini" onclick="del_num('{$list.id}')">-</a><input type="text" id="project_id{$list.id}" onkeyup="numberFilter(this,'{$list.id}')" value="{$list.num}" style="width: 40px;height: 21px;text-align: center;"/><a class="layui-btn layui-btn-primary layui-btn-mini" onclick="add_num('{$list.id}')">+</a></td>
+					<td><a id="price{$list.id}">{$list.total}</a>元</td>
+					<td><button class="layui-btn layui-btn-small layui-btn-danger " onclick="del_shop('{$list.id}',this)">删除</button></td>
+				   <tr>
+				    {/foreach}
+					</tbody>
+				</table>
+
+			<div class="jiesuan clearfix">
+				<div class="col-sm-3 pull-right ">
+					<p>金额合计：<span class="pull-right "><a class="price_total">{$sum_data}</a>元</span></p>
+					<!--<p>代金券抵扣<span class="pull-right">0元</span></p>-->
+					<!--<p>应付总额<span class="pull-right big_price">{{total_amount}}元</span></p>-->
+				</div>
+			</div>
+			<div class="pull-right flex flexalign list_bar">
+				<p>如何获取发票?</p>
+				<a href="{:url('index/index')}"><button class="layui-btn layui-btn-normal">继续购物</button></a>
+				<form method="post" action="{:url('orderList/add_order')}">
+				<button class="layui-btn layui-btn  layui-btn-danger order">去结账</button>
+				</form>
+			</div>
+	    </div>		
+	    </article>
+	    <!--js部分-->
+<script type="text/javascript">
+			layui.use(['layer', 'form'], function(){
+				var layer = layui.layer
+						,form = layui.form();
+
+			});
+			function add_num(id){
+				var project_num= $("#project_id"+id);
+				project_num.val(parseInt(project_num.val())+1);
+				$.ajax({
+					url:'/home/cart/update_num',
+					type:'post',
+					data:{
+						id:id,
+						num:project_num.val()
+					},
+					success:function(resp){
+						$("#price"+id).html(resp.data['total']);
+						$(".price_total").html(resp.total);
+						// console.log(resp)
+					}
+				})
+			}
+			function del_num(id){
+			    var project_num= $("#project_id"+id);
+				if(parseInt(project_num.val())>1){
+				project_num.val(parseInt(project_num.val())-1);
+					$.ajax({
+						url:'/home/cart/update_num',
+						type:'post',
+						data:{
+							id:id,
+							num:project_num.val()
+						},
+						success:function(resp){
+							$("#price"+id).html(resp.data['total']);
+							$(".price_total").html(resp.total);
+							// console.log(resp)
+						}
+					})
+				}else {
+					layer.msg('数量不能小于0');
+				}
+
+			}
+
+			function numberFilter(oElement,id){
+
+				// console.log(oElement);
+				// console.log(id);
+				// var project_num= $("#project_id"+id);
+				var num = oElement.value.replace(/[^\d]+/gi, "");
+				if (num < 1)
+				{
+					num = 1;
+				}
+				oElement.value = num;
+				// alert(num);
+				$.ajax({
+						url:'/home/cart/update_num',
+						type:'post',
+						data:{
+							id:id,
+							num:num
+						},
+						success:function(resp){
+							$("#price"+id).html(resp.data['total']);
+							$(".price_total").html(resp.total);
+							// console.log(resp)
+						}
+				})
+				
+
+			}
+//
+//			$(".order").click(function(){
+//				$.ajax({
+//					url:'/home/orderList/add_order',
+//					type:'post',
+//					success:function(resp){
+//						layer.alert(resp.msg);
+//					}
+//				})
+//			});
+
+			function del_shop(id,ele){
+				$.ajax({
+					url:'/home/cart/del_cart',
+					type:'post',
+					data:{
+						id:id
+					},
+					success:function(resp){
+						if(resp.code==200){
+							if(resp.num==0){
+								location.reload();
+							}else {
+							$(ele).parents("tr").remove();
+							$(".price_total").html(resp.data);
+							$(".cart_num").html(resp.num);
+							layer.msg(resp.msg);
+							}
+						}else if(resp.code==400){
+							layer.msg(resp.msg);
+						}
+					}
+				})
+			}
+
+
+			
+	    </script>
+{/empty}

@@ -1,0 +1,68 @@
+
+		<div id="header" style="width: 100%;z-index: 999;background: #ffffff;top:0">
+		    <!-- 头部 -->
+		    <!-- 标志 联系电话 -->
+		    <div class="flex flexalign">
+		       <div class="flex1 bg_icon">
+				   <a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a>
+		       </div>
+		       <div class="flex3 flex justify-content-end">
+		         <div class="tel"><i class="fa fa-phone"></i>400-960-2880</div>
+		       </div>
+		    </div>
+		    <!-- 导航栏 -->
+		    <article class="listnavbar flex">
+		      <!-- 分类 -->
+		      <div class="fl">
+		        <p><span class="fa fa-navicon"></span>全部服务分类</p>
+		        <!--左侧导航-->
+		     <div class="fl_slider">
+	        	<div class="fl_sliderlist">
+		          <div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave">
+		          	{{navigation.service_category_name}}
+		          	<span class="fa fa-angle-right"></span>
+		          </div>
+		        </div>
+		        <div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+		        	<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+		        		<div class="flex" v-for="list in navigation_rightdata.sub1">
+		        			<div class="navigation_rightdata_title">{{list.service_category_name}}</div>
+			        	    <ul class="flex3 flex">
+			        	    	<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+			        	    </ul>
+		        		</div>
+		        		
+		        	</div>
+		        </div>
+		        </div>
+		      </div> 
+		      <!-- 导航栏内容 -->
+		      <ul class="flex navbae_list justify-content-start1">
+		        <li class="navbaractive homepage"><a href="index.html">首页</a></li>
+		        <li><a href="company_registration.html">公司注册</a></li>
+		        <li><a href="#">商标注册</a></li>
+		        <li><a href="#">社保服务</a></li>
+		        <li><a href="#">法律服务</a></li>
+		        <li><a href="#">财税服务</a></li>
+		        <li><a href="#">办公选址</a></li>
+		        <li><a href="#">更多服务</a></li>
+		      </ul>
+		    </article>
+
+	    </div>
+	    <div class="page_content about_us">
+	    	<ul class="right_bottom_list flex justify-content-end">
+		    	<li class="right_bottom_list_active">关于我们</li>
+		    	<li>加入我们</li>
+		    	<li>联系我们</li>
+		    	<li>商务合作</li>
+		    	<li>友情链接</li>
+		    	<li>孵化器</li>
+		    </ul>
+	    	<p class="pagetitle">关于我们<br>中国领先的一站式创业法律服务机构</p>
+	        <p class="page_content_text">
+	           {$about.about_content}
+	        </p>
+	    </div>
+
+

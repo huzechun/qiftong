@@ -1,0 +1,91 @@
+﻿<div class="login_tip flex">
+	<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+	<div class="flex2 marginauto denglu">收银台</div>
+</div>
+<div class="order_commit">
+		<!-- 服务列表 -->
+		<div class="minwidth marT40">
+			<!-- 选择类型 -->
+			<ul class="buySerList">
+				<li>
+					<div class="pay_icon">
+						<div class="payokWrap">
+							<img src="/img/payok.png" alt="">
+						</div>
+					</div>
+					<div class="payListRi">
+							<h2>订单提交成功，请尽快支付！</h2>
+						<ul class="clearfix marB20">
+							<li>
+								<span>订单号：</span>
+								<span>{$order_data}</span>
+								<p></p>
+							</li>
+						</ul>
+						<div class="orderPrice">应付总额：<em>{$amount}元</em></div>
+					</div>
+				</li>
+			</ul>
+			<!-- 选择类型 -->
+		</div>
+		<!-- 服务列表 -->
+		<div class="paywayCon">
+			<form id="payform" action="" method="" class="layui-form">
+				<input type="hidden" name="id" value="267260" />
+				<!-- 服务列表 -->
+				<div class="paywayCon">
+					<!-- 选择类型 -->
+					<ul class="buySerList buyBorder buyRadia-pay" id="buyRadia-pay" style="margin-top:0">
+
+						<!-- 支付平台 -->
+						<li class="t-payonlineway">
+							<h3 class="titleInside">支付方式</h3>
+							<div class="listBorder">
+								<ol class="buyRadia overflowhidden payRadia">
+									<li class="t-bank" id="bd_alipay">
+										<div class="radios radiosW marL40" >
+											<a href="javascript:void(0)" class="alipay"><input type="radio"  name="bankid" value="1" title="支付宝支付">
+											<img alt="支付宝" src="/img/icon-alipay.png">
+											支付宝支付</a>
+										</div>
+									</li>
+									<!--<li id="bd_weixin">-->
+										<!--<div class="radios radiosW marL40" id="nativeCodePayBtn">-->
+											<!--<input class="group" type="radio" name="bankid" value="-2" />-->
+											<!--<img alt="微信" src="/img/icon-weixin.png">-->
+											<!--微信支付-->
+										<!--</div>-->
+									<!--</li>-->
+								</ol>
+							</div>
+						</li>
+						<!-- 支付平台 -->
+
+					</ul>
+					<!-- 选择类型 -->
+				</div>
+				<div class="marT40 overflowhidden">
+					<!--<input type="button" id="payButton" data-ordersno="9170615502508" value="去支付" class="btn-pay-ok floatRight" />-->
+					<input type="button" id="payButton" data-ordersno="9170615502508" value="去支付" style="display:none;" class="btn-pay-ok floatRight" />
+				</div>
+				<!-- 服务列表 -->
+			</form>
+		</div>
+	</div>
+	<script>
+		$(".alipay").click(function () {
+			$.ajax({
+				url:'/home/AliPay/toAliPay',
+				type:'post',
+				data:{
+					order_no:'{$order_data}'
+				},
+				success:function(resp){
+					if(resp.code==200){
+						location.href=resp.data;
+					}
+				}
+
+			})
+		})
+	</script>

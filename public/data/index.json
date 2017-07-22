@@ -1,0 +1,199 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "service_category_name": "我要开公司",
+            "service_category_parentid": 0,
+            "sort": 1,
+            "status": 1,
+            "isdelete": 0,
+            "sub1": [
+                {
+                    "id": 6,
+                    "service_category_name": "注册公司",
+                    "service_category_parentid": 1,
+                    "sort": 1,
+                    "status": 1,
+                    "isdelete": 0,
+                    "sub2": [
+                        {
+                            "id": 1,
+                            "project_name": "有限公司注册",
+                            "first_id": 1,
+                            "second_id": 6,
+                            "price": "688.00",
+                            "old_price": "0",
+                            "sort": 1,
+                            "status": 1,
+                            "isdelete": 0
+                        },
+                        {
+                            "id": 2,
+                            "project_name": "合伙企业注册",
+                            "first_id": 1,
+                            "second_id": 6,
+                            "price": "1000.00",
+                            "old_price": "0",
+                            "sort": 2,
+                            "status": 1,
+                            "isdelete": 0
+                        },
+                        {
+                            "id": 3,
+                            "project_name": "个人独资企业",
+                            "first_id": 1,
+                            "second_id": 6,
+                            "price": "688.00",
+                            "old_price": "0",
+                            "sort": 3,
+                            "status": 1,
+                            "isdelete": 0
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "service_category_name": "公司变更",
+                    "service_category_parentid": 1,
+                    "sort": 2,
+                    "status": 1,
+                    "isdelete": 0,
+                    "sub2": [
+                        {
+                            "id": 4,
+                            "project_name": "公司股权变更",
+                            "first_id": 1,
+                            "second_id": 7,
+                            "price": "123.00",
+                            "old_price": "0",
+                            "sort": 1,
+                            "status": 1,
+                            "isdelete": 0
+                        },
+                        {
+                            "id": 5,
+                            "project_name": "公司名称变更",
+                            "first_id": 1,
+                            "second_id": 7,
+                            "price": "123.00",
+                            "old_price": "0",
+                            "sort": 2,
+                            "status": 1,
+                            "isdelete": 0
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "service_category_name": "注销及其他",
+                    "service_category_parentid": 1,
+                    "sort": 3,
+                    "status": 1,
+                    "isdelete": 0,
+                    "sub2": [
+                        {
+                            "id": 6,
+                            "project_name": "工商年报公示",
+                            "first_id": 1,
+                            "second_id": 8,
+                            "price": "123.00",
+                            "old_price": "0",
+                            "sort": 1,
+                            "status": 1,
+                            "isdelete": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "service_category_name": "我要注册商标",
+            "service_category_parentid": 0,
+            "sort": 2,
+            "status": 1,
+            "isdelete": 0,
+            "sub1": [
+                {
+                    "id": 9,
+                    "service_category_name": "国内商标",
+                    "service_category_parentid": 2,
+                    "sort": 1,
+                    "status": 1,
+                    "isdelete": 0,
+                    "sub2": [
+                        {
+                            "id": 7,
+                            "project_name": "普通商标注册",
+                            "first_id": 2,
+                            "second_id": 9,
+                            "price": "123.00",
+                            "old_price": "0",
+                            "sort": 1,
+                            "status": 1,
+                            "isdelete": 0
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "service_category_name": "国际商标",
+                    "service_category_parentid": 2,
+                    "sort": 2,
+                    "status": 1,
+                    "isdelete": 0,
+                    "sub2": [
+                        {
+                            "id": 8,
+                            "project_name": "德国商标注册",
+                            "first_id": 2,
+                            "second_id": 10,
+                            "price": "223.00",
+                            "old_price": "0",
+                            "sort": 1,
+                            "status": 1,
+                            "isdelete": 0
+                        }
+                    ]
+                },
+                {
+                    "id": 11,
+                    "service_category_name": "商标周边",
+                    "service_category_parentid": 2,
+                    "sort": 3,
+                    "status": 1,
+                    "isdelete": 0,
+                    "sub2": []
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "service_category_name": "我要办社保",
+            "service_category_parentid": 0,
+            "sort": 3,
+            "status": 1,
+            "isdelete": 0,
+            "sub1": []
+        },
+        {
+            "id": 4,
+            "service_category_name": "我要找律师",
+            "service_category_parentid": 0,
+            "sort": 4,
+            "status": 1,
+            "isdelete": 0,
+            "sub1": []
+        },
+        {
+            "id": 5,
+            "service_category_name": "我要办资源",
+            "service_category_parentid": 0,
+            "sort": 5,
+            "status": 1,
+            "isdelete": 0,
+            "sub1": []
+        }
+    ]
+}

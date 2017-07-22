@@ -1,0 +1,8 @@
+{extend name="template/recyclebin" /}
+{block name="script"}
+<script>
+    $(function () {
+        $("[name='consulting_type_id']").find("[value='{$Request.param.consulting_type_id}']").attr("selected", true);
+    })
+</script>
+{/block}

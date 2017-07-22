@@ -1,0 +1,17 @@
+<form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+    <div class="select-box" style="width:250px">
+        <select name="is_comment" class="select">
+            <option value="1">已评论</option>
+            <option value="2">未评论</option>
+        </select>
+    </div>
+    <div class="select-box" style="width:250px">
+        <select name="paystatus" class="select">
+            <option value="0">待付款</option>
+            <option value="1">待服务</option>
+            <option value="2">服务中</option>
+            <option value="3">已完成</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+</form>

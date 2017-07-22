@@ -1,0 +1,94 @@
+ <style type="text/css">
+		#tab .content ul.content-detail{width:99%;margin-left: 6px;height:35px;line-height:35px;background:#F3F3F3;margin-top:10px;}
+		#tab .content ul.content-detail li{float:left;width:153px;color:#666666;font-size:14px;text-align:center;}
+		#tab .content ul li{float:left;width: 153px;color:#666666;font-size:13px;text-align:center;}
+		#tab .content ul li p.pay{background:#28a6c4;width:50px;height:30px;    line-height: 30px;border-radius: 4px;color: #fff;margin-left: 50px;margin-top: 34px;cursor: pointer;}
+		#tab .content ul:nth-child(2) .pay-style p{cursor: pointer;}
+		#tab .content ul li p.pay:hover{background:#17819a;cursor: pointer;}
+		#tab .content .bill_s{  width: 100%;
+							    height: 395px;
+							    line-height: 195px;
+							    color: #ccc;
+							    font-size:16px;
+							    text-align: center;
+							    clear: both;
+							    background:url('/img/assnofind.png') no-repeat center;
+							}
+		#tab .content .cont ul li{width:200px;}
+	</style>
+	<div class="login_tip flex">
+		<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+
+		<div class="flex2 marginauto denglu">我的发票</div>
+	</div>
+	<div id="main-order">
+	<div id="dingdan_left">
+		<ul>
+			<li>订单管理</li>
+			<li><a href="{:url('orderList/order_list')}">我的订单</a></li>
+			<li><a href="{:url('orderList/not_payment')}">待付款</a></li>
+		</ul>
+	<!--	<ul>
+			<li>我的评价</li>
+			<li>待评价</li>
+			<li>已评价</li>
+		</ul>-->
+		<ul>
+			<li>资产中心</li>
+			<li><a href="{:url('orderList/bill')}">发票</a></li>
+		</ul>
+	</div>
+	<div id="dingdan">
+		<p class="guanli">　我的发票</p>
+		<div class="none"></div>
+		<div id="tab">
+			<!-- <div class="title">
+				<h4><a href="{:url('orderList/order_list')}">订单信息</a></h4>
+				<h4><a href="{:url('orderList/not_payment')}">发票信息</a></h4>
+				<h4 class="order_active">已付款</h4>
+			</div>	 -->
+
+
+			<div class="content">
+				<div class="cont">
+					<ul class="content-detail">
+						<li>订单信息</li>
+						<li>发票信息</li>
+						<li>收件人信息</li>
+						<li>开票状态</li>
+						<!--<li>管理</li>-->
+					</ul>
+                    {empty name="data"}<div class="bill_s">目前还未提交过任何发票申请哦</div>
+					{else/}
+					{foreach name="data" item="vo" key="k"}
+					<ul style="clear:both;margin-left: 4px;height:82px;">
+						<li style="margin-top:30px;">{$vo.order_no}</li>
+						<li style="margin-top:30px;">{$vo.pay_unit}</li>
+						<li style="margin-top:30px;">{$vo.invoice_address}</li>
+						<!--下单时间-->
+						<li style="margin-top:30px;">
+							{switch name="$vo.is_open"}
+							  {case value= "0" } 已申请 {/case}
+							  {case value= "1" } 正在处理 {/case}
+							  {case value= "2" } 已邮寄 {/case}
+							{/switch}
+						</li>
+					<!--	<li class="pay-style" style="margin-top:30px;">管理</li>-->
+					</ul>
+					<hr style="width:99%">
+					{/foreach}
+					{/empty}
+					<!--{/foreach}-->
+
+					
+					<!--订单状态-->
+					<div class="none" style="height:50px;background:#fff"></div>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+<script type="text/javascript">
+
+
+</script>

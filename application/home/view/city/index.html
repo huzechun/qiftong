@@ -1,0 +1,222 @@
+
+<div id="app" class="form-inline" style="margin-top: 20px;margin-left: 20px;">
+    <div class="form-group searchMargin">
+        <label for="type1">省份：</label>
+        <select class="form-control"  id="type1" name="region_id" @change="provinceSearch('#type1')">
+            <option value="">选择省份</option>
+            <option v-for="province in provinceModel" value="{{province.region_id}}">{{province.region_name}}</option>
+        </select>
+    </div>
+    <div class="form-group searchMargin" id="city">
+        <label for="type2">市区：</label>
+        <select class="form-control" id="type2"  name="region_id" @change="citySearch('#type2')" >
+            <option value="">选择市区</option>
+            <option v-for="city in cityModel" value="{{city.region_id}}">{{city.region_name}}</option>
+        </select>
+    </div>
+    <div class="form-group searchMargin" id="country">
+        <label for="type3">乡/县：</label>
+        <select class="form-control" id="type3"  name="region_id" >
+            <option value="">选择乡/县</option>
+            <option v-for="country in countryModel" value="{{country.region_id}}">{{country.region_name}}</option>
+        </select>
+    </div>
+    <div class="form-group searchMargin" id="img">
+    </div>
+    <div class="form-group searchMargin">
+        <input type="file" name="file" lay-type="file" class="layui-upload-file">
+    </div>
+    <!--五级联动start-->
+    <br/>
+    <br/>
+    <div class="form-group searchMargin" id="province">
+        <label for="type4">省份：</label>
+        <select class="form-control" id="type4"  name="province_id" @change="positionSearch('#type4')">
+            <option value="">选择省份</option>
+            <option v-for="province in positionModel" value="{{province.province_id}}">{{province.province_name}}</option>
+        </select>
+    </div>
+    <div class="form-group searchMargin" id="municipal">
+        <label for="type5">市：</label>
+        <select class="form-control" id="type5"  name="city_id" @change="countySearch('#type5')">
+            <option value="">选择市</option>
+            <option v-for="municipal in municipalModel" value="{{municipal.city_id}}">{{municipal.city_name}}</option>
+        </select>
+    </div>
+    <div class="form-group searchMargin" id="county">
+        <label for="type6">县：</label>
+        <select class="form-control" id="type6"  name="county_id" @change="townSearch('#type6')">
+            <option value="">选择县</option>
+            <option v-for="county in countyModel" value="{{county.county_id}}">{{county.county_name}}</option>
+        </select>
+    </div>
+    <div class="form-group searchMargin" id="town">
+        <label for="type7">镇：</label>
+        <select class="form-control" id="type7"  name="town_id" @change="villageSearch('#type7')">
+            <option value="">选择镇</option>
+            <option v-for="town in townModel" value="{{town.town_id}}">{{town.town_name}}</option>
+        </select>
+    </div>
+    <div class="form-group searchMargin" id="village">
+        <label for="type8">村：</label>
+        <select class="form-control" id="type8"  name="village_id" >
+            <option value="">选择村</option>
+            <option v-for="village in villageModel" value="{{village.village_id}}">{{village.village_name}}</option>
+        </select>
+    </div>
+    <!--五级联动end-->
+    <div class="form-group searchMargin" id="timimg">
+        <label for="type3">定时发布时间：</label>
+        <div class="layui-inline">
+            <input class="layui-input" @blur="send()" name="timing" placeholder="自定义日期格式" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+        </div>
+        <button class="layui-btn" type="submit" @click="send()">确定</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    layui.use(['layer','jquery','upload','laydate'],function () {
+        let layer=layui.layer,$=layui.jquery;
+        layui.upload({
+            url:'/index/index/upload',
+            method:'post',
+            success:function (res) {
+                $("#img").append('<img src="/upload/image/'+res.info+'">');
+                console.log(res);
+            }
+        });
+        let app=new Vue({
+            el:'#app',
+            data:{
+                //三级联动
+                provinceModel:'',   //省
+                cityModel:'',     //市
+                countryModel:'',   //县
+                //五级联动
+                positionModel:'',  //省份
+                municipalModel:'', //市
+                countyModel:'',  //县
+                townModel:'',   //镇
+                villageModel:'',  //村
+                type:1,
+                start:'',
+                end:'',
+                parent:1,
+                times:'',
+                cgi:{
+                    list:'/',
+                    searchCity:'/home/city/searchCity'
+                }
+            },
+            methods:{
+                showData:function () {
+                    layer.msg('加载中...',{icon:16,time:1000});
+                    let self=this;
+                    $.ajax({
+                        type:'post',
+                        url:self.cgi.list,
+                        data:{type:this.type,parent:this.parent},
+                        dataType:'json',
+                        success:function (result) {
+                            console.log(result);
+                            self.positionModel=result.position;
+                            self.provinceModel=result.province;
+                        }
+                    })
+                },
+                provinceSearch:function (index) {
+                    let parent=$(index).val();
+                    let self=this;
+                    $.ajax({
+                        type:'post',
+                        url:self.cgi.list,
+                        data:{parent:parent,type:2},
+                        dataType:'json',
+                        success:function (result) {
+                            console.log(result);
+                            self.cityModel=result.province;
+                        }
+                    })
+                },
+                citySearch:function (index) {
+                    let parent=$(index).val();
+                    let self=this;
+                    $.ajax({
+                        type:'post',
+                        url:self.cgi.list,
+                        data:{parent:parent,type:3},
+                        dataType:'json',
+                        success:function (result) {
+                            console.log(result);
+                            self.countryModel=result.province;
+                        }
+                    })
+                },
+                /* <!--五级联动-->*/
+                positionSearch:function (index) {
+                    let id=$(index).val();
+                    let self=this;
+                    $.ajax({
+                        type:'post',
+                        url:'/home/city/searchCity',
+                        data:{id:id},
+                        dataType:'json',
+                        success:function (result) {
+                            console.log(result);
+                            self.municipalModel=result.city;
+                        }
+                    })
+                },
+                countySearch:function (index) {
+                    let id=$(index).val();
+                    let self=this;
+                    $.ajax({
+                        type:'post',
+                        url:'/home/city/searchCounty',
+                        data:{id:id},
+                        dataType:'json',
+                        success:function (result) {
+                            console.log(result);
+                            self.countyModel=result.county;
+                        }
+                    })
+                },
+                townSearch:function (index) {
+                    let id=$(index).val();
+                    let self=this;
+                    $.ajax({
+                        type:'post',
+                        url:'/home/city/searchTown',
+                        data:{id:id},
+                        dataType:'json',
+                        success:function (result) {
+                            console.log(result);
+                            self.townModel=result.town;
+                        }
+                    })
+                },
+                villageSearch:function (index) {
+                    let id=$(index).val();
+                    let self=this;
+                    $.ajax({
+                        type:'post',
+                        url:'/home/city/searchVillage',
+                        data:{id:id},
+                        dataType:'json',
+                        success:function (result) {
+                            console.log(result);
+                            self.villageModel=result.village;
+                        }
+                    })
+                },
+                send:function(){
+                    let timing=$("input[name=timing]").val();
+                    layer.msg(timing);
+                }
+            },
+            ready:function () {
+                this.showData();
+            }
+        });
+    });
+</script>

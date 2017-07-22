@@ -1,0 +1,118 @@
+<style type="text/css">
+	.mine {width: 100%;float: left;height: auto;min-width: 1180px;background:#F5F5F5}
+	.mine{background: #fff;padding: 0 12%;}
+		.mine .right_bottom_list{padding-right:1%;}
+	h1{text-align: center;margin-top: 30px;font-size: 2em;display: block;font-weight: bold;}
+	.knowMine {height: auto;margin: 10px auto;}
+	.contBlock{width:90%;height:217px;margin:20px 60px;border:1px solid #E1E1E1;background: #fff;}
+	.contBlock:hover{border:1px solid #28A6C4;}
+	.contBlock .fu_left{float: left;width:180px;height:180px;margin-left: 20px;    margin-top: 17px;}
+	.contBlock .fu_left img{width:100%;height:100%;}
+	.contBlock .fu_right{position:relative;float:left;margin-left:60px;margin-top: 15px;width:600px;height:185px;}
+	.contBlock .fu_center{position:absolute;float:right;top:100px;right: 35px;width:150px;height:40px;line-height:40px;border:1px solid #28A6C4;text-align: center;color:#28A6C4;cursor: pointer;}
+	.knowMine:hover .contBlock .fu_center{background: #28A6C4;color: #fff;}
+	.contBlock .fu_right p:first-child{font-size:13px;color:#333;}
+	.contBlock .fu_right p:nth-child(2){font-size:12px;color:#b0b0b0;}
+	.contBlock .fu_right b{font-size:14px;color:#ff473f;}
+	.contBlock .fu_right p:last-child{font-size:12px;color:#b0b0b0;}
+	.contBlock .fu_right .profit{position: absolute;bottom:0;}
+	.contBlock .fu_right .profit span{display: inline-block;width:79px;height:22px;line-height: 22px;text-align: center;border-radius: 9px;font-size: 12px;cursor: pointer;}
+	.contBlock .fu_right .profit span:nth-child(1){border:1px solid red;color:red;}
+	.contBlock .fu_right .profit span:nth-child(2){border:1px solid orange;color:orange;}
+	.contBlock .fu_right .profit span:nth-child(3){border:1px solid #44C9FF;color:#44C9FF;}
+	.contBlock .fu_right .profit span:nth-child(4){border:1px solid #57C5A9;color:#57C5A9;}
+	.swiper-slide {
+    height: 399px;
+    background: url(/img/banner001.jpg) no-repeat center center;}
+</style>
+<div id="header" style="width: 100%;z-index: 999;background: #ffffff;    margin-top: 0px;">
+	<div class="flex flexalign">
+		<div class="flex1 bg_icon">
+			<a href="{:url('index/index')}"><img src="/img/icon.png" height="46" width="100"></a>
+		</div>
+		<div class="flex3 flex justify-content-end">
+			<div class="tel">400-960-2880</div>
+		</div>
+	</div>
+	<!-- 导航栏 -->
+	<article class="listnavbar flex">
+		<!-- 分类 -->
+		<div class="fl">
+			<p><span class="fa fa-navicon"></span>全部服务分类</p>
+			<!--左侧导航-->
+			<div class="fl_slider">
+				<div class="fl_sliderlist">
+					<div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave" class="list-content div1">
+						<span style="left:4%">{{navigation.service_category_name}}</span>
+						<span class="fa fa-angle-right"></span>
+					</div>
+				</div>
+				<div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+					<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+						<div class="flex" v-for="list in navigation_rightdata.sub1">
+							<div class="navigation_rightdata_title"><a href="javascript:void (0)">   {{list.service_category_name}}</a></div>
+							<ul class="flex3 flex" style="border-bottom: 1px solid #E5E5E5;">
+								<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 导航栏内容 -->
+		<ul class="flex navbae_list justify-content-start1" id="nav_bar">
+			<li class=" homepage"><a href="{:url('index/index')}">首页</a></li>
+			{foreach name="Think.config.nav" item="list"}
+			<li><a href="{$list.url}">{$list.name}</a></li>
+			{/foreach}
+		</ul>
+	</article>
+</div>
+
+<!-- 知识库主体内容块 -->
+	<div class="mine">
+	<!-- <div class="swiper-slide"></div> -->
+		<div class="page_content about_us">
+			<ul class="right_bottom_list flex justify-content-end">
+				<li><a href="{:url('index/about')}">关于我们</a></li>
+				<li><a href="{:url('index/joinus')}">加入我们</a></li>
+				<li><a href="{:url('index/attach_us')}">联系我们</a></li>
+				<li><a href="{:url('index/cooperation')}">商务合作</a></li>
+				<li><a href="{:url('index/links')}">友情链接</a></li>
+				<li class="right_bottom_list_active"><a href="{:url('index/incubator')}">孵化器</a></li>
+			</ul>
+		</div>
+
+		<div class="knowMine">
+
+			<!-- 文章标题 begin-->
+			<h1>{$data[0]['type_title']}</h1>
+
+			{foreach name="data" item="vo" key="k"}
+
+			<div class="contBlock">
+				
+				<div class="fu_left">
+					<!--<img src="/img/ck.jpg">-->
+					<img src="{$vo.detail_pic}">
+				</div>
+				<div class="fu_right">
+					<div>
+						<p>{$vo.detail_description}</p>
+						<p style="margin-top: 18px;">{$vo.detail_space}</p>
+						<span style="font-weight: bold;color:#b0b0b0;">￥　</span><b>{$vo.detail_price}</b>
+						<p>{$vo.detail_address}</p>
+					</div>
+					<div class="profit">
+						<span>开放工位</span>
+						<span>开放资源</span>
+						<span>开放舞台</span>
+					</div>
+				</div>
+
+			</div>
+
+			{/foreach}
+		</div>
+	</div>

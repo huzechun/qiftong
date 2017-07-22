@@ -1,0 +1,13 @@
+<td><input type="checkbox" name="id[]" value="{$vo.id}"></td>
+<td>{$vo.id}</td>
+<td>{eq name="vo.service_category_parentid" value="0"}{else/}&nbsp&nbsp&nbsp&nbsp└{/eq}{$vo.service_category_name}</td>
+<td>{eq name="vo.service_category_parentid" value="0"}一级分类{else/}&nbsp&nbsp&nbsp&nbsp└
+{foreach $data as $list}
+{if condition="($list.id == $vo.service_category_parentid)"}
+{$list.service_category_name}
+{/if}
+{/foreach}
+{/eq}</td>
+<td style="padding: 0">
+    <input type="number" name="sort[{$vo.id}]" value="{$vo.sort}" style="width: 60px;"
+        class="input-text text-c order-input" data-id="{$vo.id}"></td>

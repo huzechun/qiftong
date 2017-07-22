@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>企服通</title>
+</head>
+<link rel="stylesheet" href="/css/main.css?v=1.25" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/font-awesome-4.7.0/css/font-awesome.css" />
+<link rel="stylesheet" href="/css/swiper.min.css" />
+<link rel="stylesheet" href="/layui/css/layui.css" />
+<!--//js部分-->
+<script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/vue.min.js"></script>
+<script src="/js/swiper.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/layui/layui.js"></script>
+<script src="/js/function.js"></script>
+<script src="/js/area.js"></script>
+
+<!-- 城市三级联动部分-->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script type="text/javascript" src="/layui/layui.js"></script>
+<link rel="stylesheet" href="/layui/css/layui.css">
+<script type="text/javascript" src="/js/vue.min.js"></script>
+
+<body>
+<!--[if lt IE 9]>
+  <style>
+        div{display:none;}
+
+        article{display:none;}
+ 
+        p.bottom_text{display:none;}
+        p.browsehappy{text-align:center;font-size:20px;line-height:300px;display:block;}
+  </style>
+        <p class="browsehappy">不好意思，您的浏览器<strong>版本太低</strong>. 请下载<a href="https://www.google.cn/chrome/browser/desktop/index.html">最新版本</a></p>
+<![endif]-->
+<div class="flex" id="topone">
+    <ul class="flex3 flex layui-nav" style="background:#F5F5F5;padding:0;">
+
+        {empty name="Think.session.user"}
+        <li><a href="{:url('User/login')}">登录</a></li>
+        <li><a href="{:url('User/register')}">免费注册</a></li>
+        {else /}
+        <!-- <li class="welcome"><a href="{:url('user/member')}"> 欢迎您，{$Think.session.user.member_name} <span class="select_down"></span></a>
+            <div class="self-info">
+                <ul>
+                    <li><a href="{:url('user/member')}">个人中心</a></li>
+                    <li><a onclick="logout()">退出登录</a></li>
+                </ul>
+            </div>
+        </li> -->
+        <li class="layui-nav-item layui-this li_after welcome" style="line-height: 30px;">
+            <a href="{:url('user/member')}" style="color:#333"> 欢迎您，{$Think.session.user.member_name}</a>
+            <dl class="layui-nav-child">
+              <dd><a href="{:url('user/member')}" style="height: 30px;line-height: 30px;">个人中心</a></dd>
+              <dd><a onclick="logout()" style="height: 30px;line-height: 30px;">退出登录</a></dd>
+            </dl>
+        </li>
+        {/empty}
+        <li class="shopcar"><a onclick="myCart()" >　　购物车 <span class="cart_num">{empty name="Think.session.cart_num"}0{else /}{$Think.session.cart_num}{/empty}</span>件</a>
+        </li>
+        <li><a onclick="myOrder()">我的订单</a></li>
+
+        <!--<li><a href="#">服务商登录</a></li>-->
+        <!--<li><a href="#">服务商加盟</a></li>-->
+        <!--<li><a href="#">移动应用</a></li>-->
+    </ul>
+</div>
+<!-- 头部 -->
+{__REPLACE__}
+<div class="fixed-box"><a class="fixed-top" href="#topone"><p>返回顶部</p></a></div>
+
+<article class="bottom_bar">
+    <div class="container">
+        <div class="col-md-2 col-sm-2 col-xs-4 marginauto">
+            <p class="banner_title">关于企服通</p>
+            <ul class="flex flex-wrap linktopage">
+                <li class="col-xs-12"><a href="{:url('index/about')}">关于我们</a></li>
+                <li class="col-xs-12"><a href="{:url('index/joinus')}">加入我们</a></li>
+                <li class="col-xs-12"><a href="{:url('index/attach_us')}">联系我们</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 marginauto">
+            <p class="banner_title">商务合作</p>
+            <ul class="flex flex-wrap linktopage">
+                <li class="col-xs-12"><a href="{:url('index/cooperation')}">商务合作</a></li>
+                <li class="col-xs-12"><a href="{:url('index/links')}">友情链接</a></li>
+                <li class="col-xs-12"><a href="{:url('index/incubator')}">孵化器</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-12 marginauto">
+            <p class="flex1 code_img"><img src="/img/code_img.png" alt=""  style="width:100px;height:100px;"/></p>
+        </div>
+        <div class="col-md-2 col-sm-2 col-xs-6 marginauto flexalign">
+            <p class="banner_title">扫描二维码</p>
+            <ul class="flex flex-wrap linktopage">
+                <li class="col-xs-12">关注企服通微信</li>
+                <li class="col-xs-12">创业一手掌握</li>
+            </ul>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 marginauto">
+            <p class="banner_title">服务支持</p>
+            <ul class="flex flex-wrap linktopage">
+                <li class="col-xs-12">400-960-2880</li>
+                <li class="col-xs-12">周一至周日8:00-22:00</li>
+            </ul>
+        </div>
+    </div>
+    <p class="bottom_text">Copyright©2017苏州吴中金融信息服务有限公司 保留所有权利</p>
+</article>
+
+
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function(){
+        var layer = layui.layer
+                ,form = layui.form();
+    });
+    function myCart(){
+        var user = '{$Think.session.user.id}';
+        if(user){
+            location.href="{:url('cart/index')}";
+        }else{
+            layer.msg('请先登录',{icon:0,time:800},function(){location.href="/home/user/login"});
+        }
+    }
+    function myOrder(){
+        var user = '{$Think.session.user.id}';
+        if(user){
+            location.href="{:url('orderList/order_list')}";
+        }else{
+            layer.msg('请先登录',{icon:0,time:800},function(){location.href="/home/user/login"});
+        }
+    }
+
+    var tou=document.querySelector('.fixed-box')
+    setInterval(function(evt){
+            var x=window.pageYOffset;
+
+            if(x<400){
+                tou.style.display="none"
+            }
+            if(x>=560){
+                tou.style.display="block"
+            }
+        },100)
+
+    function logout(){
+        $.ajax({
+            url:"{:url('user/login_out')}",
+            type:'post',
+            success:function(resp){
+                if(resp.code==200){
+                    layer.msg(resp.msg,{icon:1,time:800},function(){location.href='{:url("index/index")}'});
+                }
+            }
+        })
+    }
+
+    layui.use('element', function(){
+  var element = layui.element(); //导航的hover效果、二级菜单等功能，需要依赖element模块
+  
+  //监听导航点击
+  element.on('nav(demo)', function(elem){
+    //console.log(elem)
+    layer.msg(elem.text());
+  });
+});
+</script>
+
+</body>
+</html>

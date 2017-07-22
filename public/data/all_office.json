@@ -1,0 +1,34 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "consulting_type_id": 1,
+      "consulting_type_title": "办公选址",
+      "project_id": 0,
+      "icon": null,
+      "detail_logo": null,
+      "detail_description": "数百个团队从0到1的蜕变",
+      "detail_title": "办公工位",
+      "detail_price": "999元／工位／月",
+      "detail_tel": "13718446679",
+      "sort": 1,
+      "status": 1,
+      "isdelete": 0
+    },
+    {
+      "id": 2,
+      "consulting_type_id": 1,
+      "consulting_type_title": "办公选址",
+      "project_id": 0,
+      "icon": null,
+      "detail_logo": null,
+      "detail_description": "沟通、协作、资源整合 ",
+      "detail_title": "办公工位",
+      "detail_price": "1380元／工位／月",
+      "detail_tel": "13318409679",
+      "sort": 2,
+      "status": 1,
+      "isdelete": 0
+    }
+  ]
+}

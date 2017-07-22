@@ -1,0 +1,11 @@
+<form class="mb-20" method="get" action="{:\\think\\Url::build($Request.action)}">
+    <div class="select-box" style="width:250px">
+        <select name="consulting_content_id" class="select">
+            <option value="">全部</option>
+                  {foreach $data as $item}
+                    <option value="{$item.id}">{$item.consulting_type_title}</option>
+                  {/foreach}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+</form>

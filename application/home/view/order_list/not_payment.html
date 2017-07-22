@@ -1,0 +1,193 @@
+
+	<style type="text/css">
+
+		#tab .content ul.content-detail{width:99%;margin-left: 6px;height:35px;line-height:35px;background:#F3F3F3;margin-top:10px;}
+		#tab .content ul.content-detail li{float:left;width:153px;color:#666666;font-size:14px;text-align:center;}
+		#tab .content ul li{float:left;width: 153px;color:#666666;font-size:13px;text-align:center;}
+		#tab .content ul li p.pay{background:#28a6c4;width:50px;height:30px;    line-height: 30px;border-radius: 4px;color: #fff;margin-left: 50px;margin-top: 34px;cursor: pointer;}
+		#tab .content ul:nth-child(2) .pay-style p{cursor: pointer;}
+		#tab .content ul li p.pay:hover{background:#17819a;cursor: pointer;}
+	</style>
+	<div class="login_tip flex">
+		<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+		<div class="myqft">
+			<span>我的企服通</span>
+			<p><a href="{:url('index/index')}">返回首页</a></p>
+		</div>
+		<div class="flex2 marginauto denglu">订单中心</div>
+	</div>
+	<div id="main-order">
+	<div id="dingdan_left">
+		<ul>
+			<li>订单管理</li>
+			<li><a href="{:url('orderList/order_list')}">我的订单</a></li>
+			<li><a href="{:url('orderList/not_payment')}">待付款</a></li>
+		</ul>
+	<!--	<ul>
+			<li>我的评价</li>
+			<li>待评价</li>
+			<li>已评价</li>
+		</ul>-->
+		<ul>
+			<li>资产中心</li>
+			<li><a href="{:url('orderList/bill')}">发票</a></li>
+		</ul>
+	</div>
+	<div id="dingdan">
+		<p class="guanli">　订单管理</p>
+		<div class="none"></div>
+		<div id="tab">
+			<div class="title">
+				<h4><a href="{:url('orderList/order_list')}">全部订单</a> </h4>
+				<h4 class="order_active">待付款</h4>
+				<h4><a href="{:url('orderList/paid')}">已付款</a></h4>
+			</div>	
+			<div class="none"></div>
+
+			<div class="content">
+				<div class="cont">
+					<ul class="content-detail">
+						<li>订单编号</li>
+						<li>产品信息</li>
+						<li>下单时间</li>
+						<li>当前状态</li>
+						<li>操作</li>
+					</ul>
+
+					{foreach name="order_data0" item="list" key="k"}
+					<ul style="clear:both;margin-left: 4px;height:82px;">
+						<li style="margin-top:30px;">{$k}</li>
+						<li>
+							{foreach name="list.order_data0" item="vo"}
+							<div>
+								<p>{$vo.project_name}</p>
+								<p>{$vo.price}元</p>
+								<p>X{$vo.num}</p>
+							</div>
+							{/foreach}
+						</li>
+						<li style="margin-top:30px;">{$list.order_time|date='Y-m-d H:i',###}</li>
+						<!--下单时间-->
+						<li style="margin-top:30px;">
+							{if condition="$list.paystatus eq 0 "}
+							未付款
+							{else/}
+							已付款
+							{/if}
+						</li>
+						<li class="pay-style">
+							{if condition="$list.paystatus eq 0 "}
+							<p class="pay">去付款</p>
+							<p style="color:#28a6c4;cursor: pointer;">取消订单</p>
+							{else/}
+							<p style="padding-top: 25px;color:#28a6c4;cursor: pointer;">去评价</p>
+							{/if}
+						</li>
+					</ul>
+					<hr style="width:99%">
+					<!--订单状态-->
+					{/foreach}
+					<div class="none" style="height:50px;background:#fff"></div>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+<script type="text/javascript">
+		function cancel_order(order_no){
+			$.ajax({
+				url:'/home/Order_list/del_order',
+				type:'post',
+				data:{
+					'order_no':order_no
+				},
+				success:function(resp){
+					if(resp.code==200){
+						layer.msg(resp.msg,{icon:1,time:800},function(){location.reload()})
+					}else if(resp.code==400){
+						layer.msg(resp.msg,{icon:0});
+					}
+				}
+			})
+		}
+		function aliPay(order_no){
+			$.ajax({
+				url:'/home/AliPay/toAliPay',
+				type:'post',
+				data:{
+					'order_no':order_no
+				},
+				success:function(resp){
+					if(resp.code==200){
+						layer.msg('等待跳转支付',{icon:1,time:800},function(){location.href=resp.data})
+					}
+				}
+			})
+		}
+
+	    function apply_invoice(order_no){
+			layer.open({
+				type: 1,
+				title:'请填写您的邮寄的详细信息',
+				skin: 'layui-layer-demo', //样式类名
+				area: ['600px'],
+				anim: 2,
+				shadeClose: true, //开启遮罩关闭
+				content: ' <form class="layui-form" action="" style="margin: 50px">'+
+					'<div class="layui-form-item">'+
+					'<label class="layui-form-label" style="width: 100px">收款单位</label>'+
+					'<div class="layui-input-block">'+
+					'<input type="text" name="pay_unit" required  lay-verify="required" placeholder="请填写收款单位" autocomplete="off" class="layui-input">'+
+					'</div></div>'+
+					'<div class="layui-form-item">'+
+					'<label class="layui-form-label" style="width:100px">手机号</label>'+
+					'<div class="layui-input-block">'+
+					'<input type="text" name="mobilephone" required  lay-verify="required|phone" placeholder="请填写手机号" autocomplete="off" class="layui-input">'+
+					'</div></div>'+
+					'<div class="layui-form-item">'+
+					'<label class="layui-form-label" style="width:100px">邮件地址</label>'+
+					'<div class="layui-input-block">'+
+					'<textarea name="invoice_address" id="invoice_address" required="" placeholder="请填写具体的邮寄地址" class="layui-textarea" style="height: 176px;"></textarea>'+
+					'</div></div>'+
+					'<div class="layui-form-item">'+
+					'<div class="layui-input-block">'+
+					'<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>'
+					+'</div></div></form>'
+			});
+
+			layui.use(['layer', 'form'], function(){
+				var layer = layui.layer
+						,form = layui.form();
+				form.on('submit(formDemo)',function(){
+					form.verify({
+						mobilephone: [
+							/(13\d|14[57]|15[^4,\D]|17[3678]|18\d)\d{8}|170[0589]\d{7}/
+							,'请填写正确的手机号码'
+						]
+					});
+					$.ajax({
+						url:'{:url("Invoice/invoice")}',
+						type:'post',
+						data:{
+							'order_no':order_no,
+							'pay_unit':$("input[name='pay_unit']").val(),
+							'mobilephone':$("input[name='mobilephone']").val(),
+							'invoice_address':$("#invoice_address").val()
+						},
+						success:function(resp){
+							if(resp.code==200){
+								layer.msg(resp.msg,{icon:1},function(){layer.closeAll()})
+							}else if(resp.code==400){
+								layer.msg(resp.msg,{icon:5},function(){layer.closeAll()})
+							}
+
+						}
+					});
+					return false;
+				});
+			});
+
+
+
+		}
+</script>

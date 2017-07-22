@@ -1,0 +1,100 @@
+<style type="text/css">
+	.mine {width: 100%;float: left;height: auto;min-width: 1180px;background:#fff}
+	.mine{background: #fff;padding: 0 12%;}
+	.mine .right_bottom_list{padding-right:1%;}
+	h1{text-align: center;margin-top: 30px;font-size: 2em;display: block;font-weight: bold;}
+	.knowMine {width: 1060px;height: auto;margin: 10px auto;padding-bottom: 54px;}
+	.knowMine .connect_left {display:inline-block;width:500px;height:400px;vertical-align: top;}
+	.knowMine .connect_left img{width:100%;height:100%;}
+	.knowMine .connect_right {display:inline-block;width:400px;height:400px;vertical-align: top;line-height:42px;    padding-left: 70px;}
+	
+</style>
+<div id="header" style="width: 100%;z-index: 999;background: #ffffff;margin-top: 0px;">
+	<div class="flex flexalign">
+		<div class="flex1 bg_icon">
+			<a href="{:url('index/index')}"><img src="/img/icon.png" height="46" width="100"></a>
+		</div>
+		<div class="flex3 flex justify-content-end">
+			<div class="tel">400-960-2880</div>
+		</div>
+	</div>
+	<!-- 导航栏 -->
+	<article class="listnavbar flex">
+		<!-- 分类 -->
+		<div class="fl">
+			<p><span class="fa fa-navicon"></span>全部服务分类</p>
+			<!--左侧导航-->
+			<div class="fl_slider">
+				<div class="fl_sliderlist">
+					<div v-for="(navigation,index) in navigation_data" @mouseenter="select_right(index)" @mouseleave="select_leave" class="list-content div1">
+						<span style="left:4%">{{navigation.service_category_name}}</span>
+						<span class="fa fa-angle-right"></span>
+					</div>
+				</div>
+				<div class="fl_slider_right" @mouseenter="select_right" @mouseleave="select_leave">
+					<div class="list_info"  v-for="(navigation_rightdata,index) in navigation_data">
+						<div class="flex" v-for="list in navigation_rightdata.sub1">
+							<div class="navigation_rightdata_title"><a href="javascript:void (0)">   {{list.service_category_name}}</a></div>
+							<ul class="flex3 flex" style="border-bottom: 1px solid #E5E5E5;">
+								<li v-for="navigation_list in list.sub2" @click="select_service(navigation_list.id)">{{navigation_list.project_name}}</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 导航栏内容 -->
+		<ul class="flex navbae_list justify-content-start1" id="nav_bar">
+			<li class=" homepage"><a href="{:url('index/index')}">首页</a></li>
+			{foreach name="Think.config.nav" item="list"}
+			<li><a href="{$list.url}">{$list.name}</a></li>
+			{/foreach}
+		</ul>
+	</article>
+</div>
+
+<!-- 知识库主体内容块 -->
+	<div class="mine">
+		<div class="page_content about_us">
+			<ul class="right_bottom_list flex justify-content-end">
+				<li><a href="{:url('index/about')}">关于我们</a></li>
+				<li><a href="{:url('index/joinus')}">加入我们</a></li>
+				<li class="right_bottom_list_active"><a href="{:url('index/attach_us')}">联系我们</a></li>
+				<li><a href="{:url('index/cooperation')}">商务合作</a></li>
+				<li><a href="{:url('index/links')}">友情链接</a></li>
+				<li><a href="{:url('index/incubator')}">孵化器</a></li>
+			</ul>
+		</div>
+
+
+
+			<h1>{$data[0]['detail_title']}</h1>
+			<br>
+			<br>
+			<br>
+			<br>
+		<div class="knowMine">
+
+			<!-- 文章标题 begin-->
+			
+
+			<div class="connect_left">
+				<img src="{$data[0]['detail_pic']}">
+			</div>
+			<div class="connect_right">
+				<p>电话：{$data[0]['detail_tel']}</p>
+				<p>传真：{$data[0]['detail_fax']}</p>
+				<p>网址：{$data[0]['detail_web']}</p>
+				<p>邮箱：{$data[0]['detail_email']}</p>
+				<p>地址：{$data[0]['detail_address']}</p>
+				<br>
+				<img src="{$data[0]['detail_qrcode']}">
+			</div>
+
+
+
+			<!-- 以下是重复部分 -->
+		</div>
+
+	</div>

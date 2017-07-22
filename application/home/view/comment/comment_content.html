@@ -1,0 +1,159 @@
+<div class="login_tip flex">
+	<div class="flex1 icon marginauto"><a href="{:url('/home/index')}"><img src="/img/icon.png" alt="" /></a></div>
+	<div class="myqft">
+		<span>我的企服通</span>
+		<p>返回首页</p>
+	</div>
+	<div class="flex2 marginauto denglu">订单中心</div>
+</div>
+<div id="main-order">
+	<div id="dingdan_left">
+		<ul>
+			<li>订单管理</li>
+			<li><a href="{:url('orderList/order_list')}">我的订单</a></li>
+			<li><a href="{:url('orderList/not_payment')}">待付款</a></li>
+		</ul>
+	<!--	<ul>
+			<li>我的评价</li>
+			<li>待评价</li>
+			<li>已评价</li>
+		</ul>-->
+		<ul>
+			<li>资产中心</li>
+			<li><a href="{:url('orderList/bill')}">发票</a></li>
+		</ul>
+	</div>
+	<div id="dingdan">
+		<div id="tab">
+			<div class="title">
+				<h4 style="border-bottom: 2px solid #007CBC;color:#007CBC;">评价管理</h4>		
+			</div>	
+			<div class="none"></div>
+			{foreach name="comment_data" item="vo"}
+			<div class="content">
+				<div class="cont" style="display: block;">
+					<ul class="content-detail">
+						<li style="line-height: 17px;">订单编号</li>
+						<li style="line-height: 17px;">产品信息</li>
+						<li style="line-height: 17px;">下单时间</li>
+					</ul>
+					<ul style="clear:both;margin-left: 4px;height:82px;">
+						<li style="margin-top:30px;">商品编号<span>{$vo.order_no}</span></li>
+						<li>
+							<div>
+								<p>商品名称</p><span>{$vo.project_name}</span>
+								<p>商品价格</p><span>{$vo.total_price}</span>
+							</div>
+						</li>
+						<li style="margin-top:30px;">{$vo.order_time|date="Y-m-d H:i:s",###}</li>
+					</ul>
+					
+					<div style="" class="eval">
+						<form class="layui-form" action="" style="float: left;">
+							<div class="eval_left">
+								<div class="layui-form-item layui-form-text">
+									<label class="layui-form-label" style="width: 100px">评价内容：</label>
+									<div class="layui-input-block">
+										<textarea name="comment_content" required id="comment_content" placeholder="请输入内容" class="layui-textarea" style="    height: 176px;"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="eval_right">
+								<h4>评分：</h4>
+								<div class="star" ></div>
+								<h4 style="clear:both;margin-top:22px">标签：</h4>
+								<ul style="margin-top: 4px;">
+									{foreach name="tag" item="list"}
+									<input type="checkbox" lay-filter="cbClick" name="tag_id[]"  value="{$list.id}" title="{$list.tag_name}">
+									{/foreach}
+								</ul>
+
+								<div class="layui-input-block">
+									<span class="layui-btn" onclick="toComment('{$vo.id}','{$vo.project_id}','{$vo.project_name}')" style="margin-top:15px;">发布评价</span>
+								</div>
+							</div>
+						</form>
+
+						<div class="none1" ></div>
+						<!-- 下面是重复部分 -->
+						<!-- 下面是重复部分 -->
+						<!-- 下面是重复部分 -->
+						<!-- 下面是重复部分 -->
+						<!-- 下面是重复部分 -->
+						<!-- 下面是重复部分 -->
+						<!-- 下面是重复部分 -->
+					</div>
+				</div>
+			</div>
+			{/foreach}
+
+	</div>
+</div>
+</div>
+<div class="none1" style=" padding-top: 51px;"></div>
+<script src="/js/jquery.raty.js"></script>
+<script>$('.star').raty();</script>
+<script>
+	layui.use(['layer', 'form'], function(){
+		var layer = layui.layer
+				,form = layui.form();
+
+		window.check =[];
+
+		function removeWithoutCopy(arr, item) {
+			for(var i = 0; i < arr.length; i++){
+				if(arr[i] == item){
+					//splice方法会改变数组长度，当减掉一个元素后，后面的元素都会前移，因此需要相应减少i的值
+					arr.splice(i,1);
+					i--;
+				}
+			}
+			return arr;
+		}
+
+		form.on('checkbox(cbClick)', function(data){
+			console.log(data.elem.checked); //是否被选中，true或者false
+			console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+			if(data.elem.checked){
+			check.push(data.value);
+			}else {
+				removeWithoutCopy(check,data.value)
+			}
+		});
+	});
+
+
+
+
+	function toComment(id,project_id,project_name){
+		$("#comment_content").val();
+		$("input[name='score']").val();
+		if($("#comment_content").val()==''){
+			layer.msg('请填写评价内容',{icon:0});
+			return false;
+		}
+		$.ajax({
+			url:'/home/Comment/comment',
+			type:'post',
+			data:{
+				'id':id,
+				'project_id':project_id,
+				'project_name':project_name,
+				'comment_content':$("#comment_content").val(),
+				'star':$("input[name='score']").val(),
+				'tag_id':window.check
+			},
+			success:function(resp){
+				if(resp.code==200){
+					if(resp.jump==0){
+						layer.msg(resp.msg,{icon:1,time:800},function(){location.reload()})
+					}else if(resp.jump==1){
+						layer.msg(resp.msg,{icon:1,time:800},function(){location.href='{:url("orderList/order_list")}'})
+					}
+				}else if(resp.code==400){
+					layer.msg(resp.msg);
+				}
+			}
+		})
+	}
+</script>

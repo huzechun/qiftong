@@ -1,0 +1,88 @@
+           <div id="header" style="position: fixed;width: 100%;z-index: 999;background: #ffffff;top:0">
+		    <!-- 头部 -->
+		    <header class="flex">
+		      <div class="flex1">1</div>
+		      <ul class="flex3 flex">
+		        <li><a href="#">登录</a></li>
+		        <li><a href="#">免费注册</a></li>
+		        <li><a href="#">我的订单</a></li>
+		        <li><a href="#">购物车0件</a></li>
+		        <li><a href="#">服务商登录</a></li>
+		        <li><a href="#">服务商加盟</a></li>
+		        <li><a href="#">移动应用</a></li>
+		      </ul>
+		    </header>
+		    <!-- 标志 联系电话 -->
+		    <div class="flex">
+		       <div class="flex1">
+		         <img src="./assets/img/icon.png" height="46" width="100">
+		       </div>
+		       <div class="flex3 flex justify-content-end">
+		         <div class="tel"><i class="fa fa-camera-retro"></i>400-960-2880</div>
+		       </div>
+		    </div>
+		    <!-- 导航栏 -->
+		    <article class="listnavbar flex">
+		      <!-- 分类 -->
+		      <div class="fl">
+		        <p><span class="fa fa-camera-retro"></span>全部服务分类</p>
+		      </div> 
+		      <!-- 导航栏内容 -->
+		      <ul class="flex justify-content-start1">
+		        <li class="navbaractive homepage"><a href="#">首页</a></li>
+		        <li><a href="company_registration.html">公司注册</a></li>
+		        <li><a href="#">商标注册</a></li>
+		        <li><a href="#">社保服务</a></li>
+		        <li><a href="#">法律服务</a></li>
+		        <li><a href="#">财税服务</a></li>
+		        <li><a href="#">办公选址</a></li>
+		        <li><a href="#">更多服务</a></li>
+		      </ul>
+		    </article>
+		     <!--左侧导航-->
+			     <div class="flex fl_slider" @mouseleave="selectleave">
+		        	<div class="fl_sliderlist" v-show="left_state">
+			          <div v-for="(navigation,index) in navigation_left" @mouseenter="selecthover(index)" >{{navigation.name}}<span class="fa fa-angle-right"></span></div>
+			        </div>
+			        <div class="flex1 fl_slider_right">
+			        	<div class="flex" v-for="navigation_rightdata in navigation_right">
+			        		<p class="flex1">{{navigation_right.list_name}}</p>
+			        	    <ul class="flex3">
+			        	    	<li v-for="navigation_list in navigation_rightdata.listdata">{{navigation_list}}</li>
+			        	    </ul>
+			        	</div>
+			        </div>
+		        </div>
+		    </div>
+		    <script>
+		    	console.log(sessionStorage.getItem('type'))
+		    	var vm = new Vue({
+					el:'#headervue',
+					data:{
+					  left_state:sessionStorage.getItem("type"),
+	                  navigation_left:{},//左侧数据列表
+	                  navigation_right:{}//右侧数据
+					},
+					created:function(){
+						$.ajax({
+							url:'./data/left.json',
+						    type:'get',
+						    success:function(res){
+							vm.navigation_left=res;
+							}
+						})
+					},
+					methods:{
+					  selecthover:function(index){
+					  	$('.fl_slider_right').fadeIn('100');
+					  	console.log(index)
+					  },
+					  selectleave:function(){
+					  	$('.fl_slider_right').css({'display':'none'});
+					  }
+					}
+				})
+		    	console.log(vm.left_state)
+
+
+		    </script>
